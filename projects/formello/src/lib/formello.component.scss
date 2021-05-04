@@ -1,0 +1,38 @@
+
+.formello-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.formello-field{
+    margin-left: 1rem;
+}
+
+.formello-field:first-child, .formello-radio-button:first-child {
+    margin-left: 0;
+}
+
+.formello-radio-button {
+    margin-left: 1rem;
+}
+
+.formello-field-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: .5rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+}
+
+
+.formello-field-container > label{
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.formello-field-container > mat-error{
+    margin-top: .5rem;
+    font-size: 75%;
+}

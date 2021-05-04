@@ -3,5 +3,46 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "formello": {
+      "projectType": "library",
+      "root": "projects/formello",
+      "sourceRoot": "projects/formello/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/formello/tsconfig.lib.json",
+            "project": "projects/formello/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/formello/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/formello/src/test.ts",
+            "tsConfig": "projects/formello/tsconfig.spec.json",
+            "karmaConfig": "projects/formello/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/formello/tsconfig.lib.json",
+              "projects/formello/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "formello"
 }
