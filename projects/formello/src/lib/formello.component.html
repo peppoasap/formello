@@ -83,9 +83,9 @@
                     <ng-container #date *ngSwitchCase="'DATE'">
                         <mat-form-field appearance="outline" class="formello-field">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker" [formControl]="field.control">
+                            <input matInput [matDatepicker]="picker" [formControl]="field.control" disabled>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker #picker disabled="false"></mat-datepicker>
                         </mat-form-field>
                     </ng-container>
 
