@@ -3,17 +3,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .formello-field{
     margin-left: 1rem;
 }
 
-.formello-field:first-child, .formello-radio-button:first-child {
+.formello-field:first-child, .formello-radio-button:first-child, .formello-checkbox:first-child {
     margin-left: 0;
 }
 
-.formello-radio-button {
+.formello-radio-button, .formello-checkbox {
     margin-left: 1rem;
 }
 

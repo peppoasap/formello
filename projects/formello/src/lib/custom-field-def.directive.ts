@@ -1,4 +1,3 @@
-import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Directive, Input, TemplateRef } from '@angular/core';
 
 @Directive({

@@ -3,20 +3,21 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
-    "target": "es2015",
+    "target": "es2016",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
     "lib": [
       "dom",
-      "es2015"
+      "es2016"
     ]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "enableResourceInlining": true,
+    "enableIvy": false
   },
   "exclude": [
     "src/test.ts",

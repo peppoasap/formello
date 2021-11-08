@@ -7,15 +7,21 @@ export interface IFormelloField {
     control: FormControl,
     type: FormelloFieldTypes,
     options: Array<IFormelloFieldOption>,
-    errors: Map<string, string>
-    disabled: boolean;
-    readonly: boolean;
+    errors: Map<string, string>,
+    disabled: boolean,
+    readonly: boolean,
+    datepicker?: {
+        startDate?: Date;
+    }
 
-    getCurrentErrors(): Array<string>
+    getCurrentErrors(): Array<string>;
+    addValidators(validatorsToAdd: Array<ValidatorFn>): void;
+    removeValidators(validatorsToRemove: Array<ValidatorFn>): void;
+    setValidators(validators: Array<ValidatorFn>): void;
 }
 
 export interface IFormelloFieldOption {
-    value: string | number | boolean,
+    value: string | number,
     viewValue: string
 }
 
