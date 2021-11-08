@@ -1,6 +1,6 @@
 {
   "name": "formello",
-  "version": "0.0.8-beta",
+  "version": "0.1.29-beta",
   "peerDependencies": {
     "@angular/common": ">=8.0.0",
     "@angular/core": ">=8.0.0",

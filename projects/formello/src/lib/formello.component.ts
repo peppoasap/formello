@@ -42,8 +42,9 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
     return this.customFieldDefs?.find((field) => field.name === name);
   }
 
-  getCustomFieldTemplate(name: string): TemplateRef<any> | undefined {
-    return this.customFieldDefs?.find((field) => field.name === name)?.templateRef;
+  getCustomFieldTemplate(name: string): TemplateRef<any> | null {
+    const finded = this.customFieldDefs?.find((field) => field.name === name);
+    return finded ? finded.templateRef : null;
   }
 
   displayFn(option: IFormelloFieldOption): string {

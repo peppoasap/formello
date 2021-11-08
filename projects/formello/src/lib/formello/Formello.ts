@@ -1,5 +1,6 @@
 import { ThrowStmt } from "@angular/compiler";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Observable } from "rxjs";
 import { IFormelloConfig, IFormelloField } from "../../public-api";
 import { FormelloField } from "./FormelloField";
 
@@ -8,7 +9,6 @@ export class Formello<T>{
     private _config: IFormelloConfig<T>;
     private _keys: Array<string> = [];
     private _formGroup: FormGroup = new FormGroup({});
-
 
     constructor(config: IFormelloConfig<T>) {
         this._config = config;
@@ -47,8 +47,12 @@ export class Formello<T>{
             row.fields.forEach(field => field.control = (this._config.model as any)[field.name].control);
             return row;
         });
+
+        this.generateFormGroup();
     }
 
-
+    public valueChanges(): Observable<any> {
+        return this.getForm().valueChanges;
+    }
 
 }
