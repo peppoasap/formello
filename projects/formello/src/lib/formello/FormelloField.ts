@@ -12,6 +12,7 @@ export class FormelloField implements IFormelloField {
     disabled: boolean = false;
     readonly: boolean = false;
     datepicker: { startDate: Date } | undefined = undefined;
+    elementRef: HTMLElement | undefined = undefined;
 
     constructor(_name: string, _label: string, _value: string | number | boolean | null, _type: FormelloFieldTypes, _validators?: ValidatorFn[], _options?: Array<IFormelloFieldOption>) {
         this.name = _name;
@@ -20,7 +21,6 @@ export class FormelloField implements IFormelloField {
         this.validators = this.validators.concat(_validators ? _validators : []);
         this.control.setValidators(this.validators);
         this.control.updateValueAndValidity();
-
         this.type = _type;
 
         if (this.type !== FormelloFieldTypes.TEXT) {
@@ -67,6 +67,10 @@ export class FormelloField implements IFormelloField {
         this.validators = validators;
         this.control.setValidators(this.validators);
         this.control.updateValueAndValidity();
+    }
+
+    setElementRef(element: any) {
+        this.elementRef = element;
     }
 
 }

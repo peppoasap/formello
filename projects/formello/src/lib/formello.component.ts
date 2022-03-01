@@ -1,4 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, OnInit, QueryList, TemplateRef, ViewChildren } from '@angular/core';
+import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { IFormelloFieldOption, FormelloFieldTypes } from '../models/interfaces/IFormelloField.interface';
@@ -16,6 +17,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
   formello!: Formello<T>;
 
   @ContentChildren(FormelloCustomFieldDef, { descendants: true }) customFieldDefs: QueryList<FormelloCustomFieldDef> | undefined;
+  @ViewChildren(MatFormField) visibleFormFieldsRefs: QueryList<MatFormField> | undefined;
 
   filteredOptionsArray: Map<string, Observable<IFormelloFieldOption[]>> = new Map();
 
@@ -32,6 +34,10 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
           map((viewValue: any) => viewValue ? this._filter(field.options, viewValue) : field.options.slice()),
         ));
       }
+    });
+
+    this.visibleFormFieldsRefs?.changes.subscribe(_ => {
+      this.updateElementRef();
     });
   }
 
@@ -55,4 +61,12 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
     const filterValue = value.toLowerCase();
     return options.filter(option => option.viewValue.toLowerCase().includes(filterValue));
   }
+
+  private updateElementRef(): void {
+    this.formello.getConfig().rows
+      .forEach((row) => row.fields
+        .forEach(field => field.setElementRef(this.visibleFormFieldsRefs?.find(matFormField => (matFormField._elementRef.nativeElement as HTMLElement).id === field.name)?._inputContainerRef.nativeElement)));
+  }
+
+
 }

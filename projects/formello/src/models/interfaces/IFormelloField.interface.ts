@@ -13,11 +13,13 @@ export interface IFormelloField {
     datepicker?: {
         startDate?: Date;
     }
+    elementRef: HTMLElement | undefined;
 
     getCurrentErrors(): Array<string>;
     addValidators(validatorsToAdd: Array<ValidatorFn>): void;
     removeValidators(validatorsToRemove: Array<ValidatorFn>): void;
     setValidators(validators: Array<ValidatorFn>): void;
+    setElementRef(element: any): void;
 }
 
 export interface IFormelloFieldOption {
@@ -31,5 +33,7 @@ export enum FormelloFieldTypes {
     RADIO = 'RADIO',
     CHECK = 'CHECK',
     SEARCH_SELECT = 'SEARCH_SELECT',
-    DATE = 'DATE'
+    DATE = 'DATE',
+    TIME = 'TIME',
+    SWITCH = 'SWITCH'
 }

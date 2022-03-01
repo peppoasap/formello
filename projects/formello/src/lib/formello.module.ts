@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -27,7 +28,8 @@ import { FormelloCustomFieldDef } from './custom-field-def.directive';
     MatRadioModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSlideToggleModule
   ],
   exports: [
     FormelloComponent,
