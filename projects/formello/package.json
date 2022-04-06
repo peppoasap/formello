@@ -5,7 +5,8 @@
     "@angular/common": ">=8.0.0",
     "@angular/core": ">=8.0.0",
     "@angular/material": ">=8.2.3",
-    "@angular/cdk": ">=8.2.3"
+    "@angular/cdk": ">=8.2.3",
+    "@lendingsolution/ngx-agatha-ui": ">=0.1.7"
   },
   "dependencies": {
     "tslib": "^1.14.1"

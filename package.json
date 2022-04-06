@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
+    "@lendingsolution/agatha-ui-web": "^0.1.6",
+    "@lendingsolution/ngx-agatha-ui": "^0.1.7",
     "rxjs": "~6.6.0",
     "tslib": "^1.14.1",
     "zone.js": "~0.11.3"
