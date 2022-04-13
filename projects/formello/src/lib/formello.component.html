@@ -9,8 +9,8 @@
 
             <ng-template #standardField>
                 <ng-container [ngSwitch]="styleLibrary">
-                    <ng-container *ngSwitchCase="'material'" [ngTemplateOutlet]="material" [ngTemplateOutletContext]="field"></ng-container>
-                    <ng-container *ngSwitchCase="'agatha'" [ngTemplateOutlet]="agatha" [ngTemplateOutletContext]="field"></ng-container>
+                    <ng-container *ngSwitchCase="'material'" [ngTemplateOutlet]="material" [ngTemplateOutletContext]="{field}"></ng-container>
+                    <ng-container *ngSwitchCase="'agatha'" [ngTemplateOutlet]="agatha" [ngTemplateOutletContext]="{field}"></ng-container>
                 </ng-container>
                 
             </ng-template>
@@ -26,7 +26,7 @@
         <ng-container #text *ngSwitchCase="'TEXT'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <input matInput type="text" [formControlName]="field.name" [disabled]="field.disabled"
+                <input matInput type="text" [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled"
                     [readonly]="field.readonly">
                 <mat-error *ngFor="let error of field.getCurrentErrors()">
                     {{field.errors.get(error)}}
@@ -37,7 +37,7 @@
         <ng-container #select *ngSwitchCase="'SELECT'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <mat-select [formControlName]="field.name" [disabled]="field.disabled">
+                <mat-select [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled">
                     <mat-option *ngFor="let option of field.options" [value]="option.value">
                         {{option.viewValue}}
                     </mat-option>
@@ -51,7 +51,7 @@
         <ng-container #radio *ngSwitchCase="'RADIO'">
             <div class="formello-field formello-field-container">
                 <label>{{field.label}}</label>
-                <mat-radio-group [formControlName]="field.name" [disabled]="field.disabled">
+                <mat-radio-group [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled">
                     <mat-radio-button *ngFor="let option of field.options" [value]="option.value"
                         class="formello-radio-button">
                         {{option.viewValue}}
@@ -64,7 +64,7 @@
         </ng-container>
 
         <ng-container #check *ngSwitchCase="'CHECK'">
-            <mat-checkbox [formControlName]="field.name" class="formello-checkbox"
+            <mat-checkbox [formControl]="$any(formello.getForm().get(field.name))" class="formello-checkbox"
                 [disabled]="field.disabled" [id]="field.name">
                 {{field.label}}
             </mat-checkbox>
@@ -76,7 +76,7 @@
         <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <input type="text" matInput [formControlName]="field.name" [matAutocomplete]="autoGroup"
+                <input type="text" matInput [formControl]="$any(formello.getForm().get(field.name))" [matAutocomplete]="autoGroup"
                     [disabled]="field.disabled" [readonly]="field.readonly">
                 <mat-autocomplete autoActiveFirstOption #autoGroup="matAutocomplete"
                     [displayWith]="displayFn">
@@ -94,7 +94,7 @@
         <ng-container #date *ngSwitchCase="'DATE'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <input matInput [matDatepicker]="picker" [formControlName]="field.name"
+                <input matInput [matDatepicker]="picker" [formControl]="$any(formello.getForm().get(field.name))"
                     [disabled]="field.disabled" [readonly]="field.readonly">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker
@@ -107,7 +107,7 @@
         <ng-container #time *ngSwitchCase="'TIME'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <input matInput type="time" [formControlName]="field.name" [disabled]="field.disabled"
+                <input matInput type="time" [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled"
                     [readonly]="field.readonly">
                 <mat-error *ngFor="let error of field.getCurrentErrors()">
                     {{field.errors.get(error)}}
@@ -116,7 +116,7 @@
         </ng-container>
         
         <ng-container #switch *ngSwitchCase="'SWITCH'">
-                    <mat-slide-toggle  [formControlName]="field.name" [disabled]="field.disabled" [id]="field.name" class="formello-checkbox">
+                    <mat-slide-toggle  [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled" [id]="field.name" class="formello-checkbox">
                         {{field.label}}
                     </mat-slide-toggle>
                 <mat-error *ngFor="let error of field.getCurrentErrors()">
@@ -131,11 +131,11 @@
     <ng-container [ngSwitch]="field.type">
         
         <ng-container #text *ngSwitchCase="'TEXT'">
-            <agt-input agtInput type="text" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControlName]="field.name"></agt-input>
+            <agt-input ngDefaultControl type="text" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
 
         <ng-container #select *ngSwitchCase="'SELECT'">
-            <agt-select  class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControlName]="field.name">
+            <agt-select ngDefaultControl class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))">
                 <option *ngFor="let option of field.options" [value]="option.value" [value]="option.value">
                     {{option.viewValue}}
                 </option>
@@ -143,9 +143,9 @@
         </ng-container>
 
         <ng-container #radio *ngSwitchCase="'RADIO'">
-            <div class="formello-field formello-field-container" [formControlName]="field.name" [disabled]="field.disabled">
+            <div class="formello-field formello-field-container" [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled">
                 <label>{{field.label}}</label>
-                <agt-radio-button *ngFor="let option of field.options" [value]="option.value"
+                <agt-radio-button ngDefaultControl *ngFor="let option of field.options" [value]="option.value"
                 class="formello-radio-button">
                 {{option.viewValue}}
             </agt-radio-button>
@@ -156,7 +156,7 @@
         </ng-container>
 
         <ng-container #check *ngSwitchCase="'CHECK'">
-            <agt-checkbox  [formControlName]="field.name" class="formello-checkbox"
+            <agt-checkbox  ngDefaultControl [formControl]="$any(formello.getForm().get(field.name))" class="formello-checkbox"
             [disabled]="field.disabled" [id]="field.name">
             {{field.label}}</agt-checkbox>
             <mat-error *ngFor="let error of field.getCurrentErrors()">
@@ -167,7 +167,7 @@
         <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name">
                 <mat-label>{{field.label}}</mat-label>
-                <input type="text" matInput [formControlName]="field.name" [matAutocomplete]="autoGroup"
+                <input type="text" matInput [formControl]="$any(formello.getForm().get(field.name))" [matAutocomplete]="autoGroup"
                     [disabled]="field.disabled" [readonly]="field.readonly">
                 <mat-autocomplete autoActiveFirstOption #autoGroup="matAutocomplete"
                     [displayWith]="displayFn">
@@ -183,15 +183,15 @@
         </ng-container>
 
         <ng-container #date *ngSwitchCase="'DATE'">
-            <agt-input agtInput type="date" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControlName]="field.name"></agt-input>
+            <agt-input ngDefaultControl type="date" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
 
         <ng-container #time *ngSwitchCase="'TIME'">
-            <agt-input agtInput type="time" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControlName]="field.name"></agt-input>
+            <agt-input ngDefaultControl type="time" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
         
         <ng-container #switch *ngSwitchCase="'SWITCH'">
-                    <mat-slide-toggle  [formControlName]="field.name" [disabled]="field.disabled" [id]="field.name" class="formello-checkbox">
+                    <mat-slide-toggle  [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled" [id]="field.name" class="formello-checkbox">
                         {{field.label}}
                     </mat-slide-toggle>
                 <mat-error *ngFor="let error of field.getCurrentErrors()">
