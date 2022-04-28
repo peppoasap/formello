@@ -131,11 +131,11 @@
     <ng-container [ngSwitch]="field.type">
         
         <ng-container #text *ngSwitchCase="'TEXT'">
-            <agt-input ngDefaultControl type="text" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
+            <agt-input ngDefaultControl type="text" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
 
         <ng-container #select *ngSwitchCase="'SELECT'">
-            <agt-select ngDefaultControl class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))">
+            <agt-select ngDefaultControl class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))">
                 <option *ngFor="let option of field.options" [value]="option.value" [value]="option.value">
                     {{option.viewValue}}
                 </option>
@@ -143,15 +143,21 @@
         </ng-container>
 
         <ng-container #radio *ngSwitchCase="'RADIO'">
-            <div class="formello-field formello-field-container" [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled">
-                <label>{{field.label}}</label>
-                <agt-radio-button ngDefaultControl *ngFor="let option of field.options" [value]="option.value"
-                class="formello-radio-button">
-                {{option.viewValue}}
-            </agt-radio-button>
-            <mat-error *ngFor="let error of field.getCurrentErrors()">
-                {{field.errors.get(error)}}
-            </mat-error>
+            <div class="formello-field formello-field-container">
+                <agt-radio-group class="formello-checkbox-group"  ngDefaultControl [name]="field.name" [formControl]="$any(formello.getForm().get(field.name))">
+                    <label>{{field.label}}</label>
+                    <agt-radio-button ngDefaultControl *ngFor="let option of field.options" [value]="option.value"  [disabled]="field.disabled"
+                    class="formello-radio-button">
+                    {{option.viewValue}}
+                </agt-radio-button>
+            </agt-radio-group>
+            <div class="flex flex-col">
+                <ng-container *ngIf="field.getCurrentErrors().length > 0">
+                    <mat-error *ngFor="let error of getErrorsForAgatha(field)">
+                        {{error}}
+                    </mat-error>
+                </ng-container>
+            </div>
             </div>
         </ng-container>
 
@@ -159,9 +165,11 @@
             <agt-checkbox  ngDefaultControl [formControl]="$any(formello.getForm().get(field.name))" class="formello-checkbox"
             [disabled]="field.disabled" [id]="field.name">
             {{field.label}}</agt-checkbox>
-            <mat-error *ngFor="let error of field.getCurrentErrors()">
-                {{field.errors.get(error)}}
+            <ng-container *ngIf="field.getCurrentErrors().length > 0">
+            <mat-error *ngFor="let error of getErrorsForAgatha(field)">
+                {{error}}
             </mat-error>
+            </ng-container>
         </ng-container>
 
         <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
@@ -176,27 +184,32 @@
                         {{option.viewValue}}
                     </mat-option>
                 </mat-autocomplete>
-                <mat-error *ngFor="let error of field.getCurrentErrors()">
-                    {{field.errors.get(error)}}
-                </mat-error>
+                <ng-container *ngIf="field.getCurrentErrors().length > 0">
+                    <mat-error *ngFor="let error of getErrorsForAgatha(field)">
+                        {{error}}
+                    </mat-error>
+                    </ng-container>
+
             </mat-form-field>
         </ng-container>
 
         <ng-container #date *ngSwitchCase="'DATE'">
-            <agt-input ngDefaultControl type="date" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
+            <agt-input ngDefaultControl type="date" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label"  [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
 
         <ng-container #time *ngSwitchCase="'TIME'">
-            <agt-input ngDefaultControl type="time" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label" [error]="field.getCurrentErrors()" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
+            <agt-input ngDefaultControl type="time" class="formello-field" [id]="field.name" [disabled]="field.disabled" [label]="field.label"  [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
         
         <ng-container #switch *ngSwitchCase="'SWITCH'">
                     <mat-slide-toggle  [formControl]="$any(formello.getForm().get(field.name))" [disabled]="field.disabled" [id]="field.name" class="formello-checkbox">
                         {{field.label}}
                     </mat-slide-toggle>
-                <mat-error *ngFor="let error of field.getCurrentErrors()">
-                    {{field.errors.get(error)}}
-                </mat-error>
+                    <ng-container *ngIf="field.getCurrentErrors().length > 0">
+                        <mat-error *ngFor="let error of getErrorsForAgatha(field)">
+                            {{error}}
+                        </mat-error>
+                        </ng-container>
         </ng-container>
 
     </ng-container>

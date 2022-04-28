@@ -1,13 +1,13 @@
 {
   "name": "formello",
-  "version": "0.1.39",
+  "version": "0.1.42",
   "peerDependencies": {
     "@angular/common": ">=8.0.0",
     "@angular/core": ">=8.0.0",
     "@angular/material": ">=8.2.3",
     "@angular/cdk": ">=8.2.3",
-    "@lendingsolution/ngx-agatha-ui": ">=0.1.10",
-    "@lendingsolution/agatha-ui-web": ">=0.1.9"
+    "@lendingsolution/ngx-agatha-ui": ">=0.1.12",
+    "@lendingsolution/agatha-ui-web": ">=0.1.12"
   },
   "dependencies": {
     "tslib": "^2.3.1"

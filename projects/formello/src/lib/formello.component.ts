@@ -9,6 +9,7 @@ import {
   TemplateRef,
   ViewChildren,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -18,6 +19,7 @@ import {
 } from '../models/interfaces/IFormelloField.interface';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { Formello } from './formello/Formello';
+import { FormelloField } from './formello/FormelloField';
 
 @Component({
   selector: 'formello',
@@ -79,6 +81,10 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   displayFn(option: IFormelloFieldOption): string {
     return option && option.viewValue ? option.viewValue : '';
+  }
+
+  getErrorsForAgatha(field: FormelloField): string[] {
+    return Array.from(field.errors.values());
   }
 
   private _filter(
