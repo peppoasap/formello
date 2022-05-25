@@ -1,10 +1,25 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnDestroy, OnInit, QueryList, TemplateRef, ViewChildren } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Input,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  TemplateRef,
+  ViewChildren,
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { IFormelloFieldOption, FormelloFieldTypes } from '../models/interfaces/IFormelloField.interface';
+import {
+  IFormelloFieldOption,
+  FormelloFieldTypes,
+} from '../models/interfaces/IFormelloField.interface';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { Formello } from './formello/Formello';
+import { FormelloField } from './formello/FormelloField';
 
 @Component({
   selector: 'formello',
@@ -12,37 +27,48 @@ import { Formello } from './formello/Formello';
   styleUrls: ['formello.component.scss'],
 })
 export class FormelloComponent<T> implements OnInit, OnDestroy {
-
   @Input()
   formello!: Formello<T>;
+  @Input() styleLibrary: 'material' | 'agatha' = 'agatha';
 
-  @ContentChildren(FormelloCustomFieldDef, { descendants: true }) customFieldDefs: QueryList<FormelloCustomFieldDef> | undefined;
-  @ViewChildren(MatFormField) visibleFormFieldsRefs: QueryList<MatFormField> | undefined;
+  @ContentChildren(FormelloCustomFieldDef, { descendants: true })
+  customFieldDefs: QueryList<FormelloCustomFieldDef> | undefined;
+  @ViewChildren(MatFormField) visibleFormFieldsRefs:
+    | QueryList<MatFormField>
+    | undefined;
 
-  filteredOptionsArray: Map<string, Observable<IFormelloFieldOption[]>> = new Map();
+  filteredOptionsArray: Map<string, Observable<IFormelloFieldOption[]>> =
+    new Map();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-
-    Object.keys(this.formello.getConfig().model).forEach(key => {
+    Object.keys(this.formello.getConfig().model).forEach((key) => {
       const field = (this.formello.getConfig().model as any)[key];
       if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
-        this.filteredOptionsArray.set(key, field.control.valueChanges.pipe(
-          startWith(''),
-          map((value: any) => typeof value === 'string' ? value : value.viewValue),
-          map((viewValue: any) => viewValue ? this._filter(field.options, viewValue) : field.options.slice()),
-        ));
+        this.filteredOptionsArray.set(
+          key,
+          field.control.valueChanges.pipe(
+            startWith(''),
+            map((value: any) =>
+              typeof value === 'string' ? value : value.viewValue
+            ),
+            map((viewValue: any) =>
+              viewValue
+                ? this._filter(field.options, viewValue)
+                : field.options.slice()
+            )
+          )
+        );
       }
     });
 
-    this.visibleFormFieldsRefs?.changes.subscribe(_ => {
+    this.visibleFormFieldsRefs?.changes.subscribe((_) => {
       this.updateElementRef();
     });
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   getCustomField(name: string): FormelloCustomFieldDef | undefined {
     return this.customFieldDefs?.find((field) => field.name === name);
@@ -57,16 +83,35 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
     return option && option.viewValue ? option.viewValue : '';
   }
 
-  private _filter(options: IFormelloFieldOption[], value: string): IFormelloFieldOption[] {
+  getErrorsForAgatha(field: FormelloField): string[] {
+    return Array.from(field.errors.values());
+  }
+
+  private _filter(
+    options: IFormelloFieldOption[],
+    value: string
+  ): IFormelloFieldOption[] {
     const filterValue = value.toLowerCase();
-    return options.filter(option => option.viewValue.toLowerCase().includes(filterValue));
+    return options.filter((option) =>
+      option.viewValue.toLowerCase().includes(filterValue)
+    );
   }
 
   private updateElementRef(): void {
-    this.formello.getConfig().rows
-      .forEach((row) => row.fields
-        .forEach(field => field.setElementRef(this.visibleFormFieldsRefs?.find(matFormField => (matFormField._elementRef.nativeElement as HTMLElement).id === field.name)?._inputContainerRef.nativeElement)));
+    this.formello
+      .getConfig()
+      .rows.forEach((row) =>
+        row.fields.forEach((field) =>
+          field
+            ? field.setElementRef(
+                this.visibleFormFieldsRefs?.find(
+                  (matFormField) =>
+                    (matFormField._elementRef.nativeElement as HTMLElement)
+                      .id === field.name
+                )?._inputContainerRef.nativeElement
+              )
+            : null
+        )
+      );
   }
-
-
 }

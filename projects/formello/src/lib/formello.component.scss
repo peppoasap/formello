@@ -4,10 +4,15 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 .formello-field{
     margin-left: 1rem;
+}
+
+.formello-empty{
+    flex: 1;
 }
 
 .formello-field:first-child, .formello-radio-button:first-child, .formello-checkbox:first-child {
@@ -15,7 +20,7 @@
 }
 
 .formello-radio-button, .formello-checkbox {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
 }
 
 .formello-field-container{
@@ -24,16 +29,23 @@
     border: 1px solid black;
     padding: .5rem;
     border-radius: 6px;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.25rem;
 }
 
+.formello-checkbox-group{
+    display: flex;
+
+}
 
 .formello-field-container > label{
     font-weight: 500;
-    margin-bottom: 1rem;
 }
 
 .formello-field-container > mat-error{
     margin-top: .5rem;
     font-size: 75%;
+}
+
+mat-error{
+    color: #d87a18 !important
 }

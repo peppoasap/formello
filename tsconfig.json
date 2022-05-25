@@ -21,12 +21,13 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "module": "es2015",
+    "module": "esnext",
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ]
   },
+  "exclude": ["node_modules", "tmp"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
