@@ -8,6 +8,7 @@ export * from './lib/custom-field-def.directive';
 
 export * from './lib/formello/Formello';
 export * from './lib/formello/FormelloField';
+export * from './lib/formello/FormelloEmptyField';
 
 export * from './models/interfaces/IFormelloConfig.interface';
 export * from './models/interfaces/IFormelloRow.interface';

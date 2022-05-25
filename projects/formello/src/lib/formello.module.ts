@@ -10,14 +10,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
-
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxAgathaModule } from '@lendingsolution/ngx-agatha-ui';
 
 @NgModule({
-  declarations: [
-    FormelloComponent,
-    FormelloCustomFieldDef
-  ],
+  declarations: [FormelloComponent, FormelloCustomFieldDef],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,11 +24,10 @@ import { FormelloCustomFieldDef } from './custom-field-def.directive';
     MatRadioModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    NgxAgathaModule,
   ],
-  exports: [
-    FormelloComponent,
-    FormelloCustomFieldDef
-  ]
+  exports: [FormelloComponent, FormelloCustomFieldDef],
 })
-export class FormelloModule { }
+export class FormelloModule {}
