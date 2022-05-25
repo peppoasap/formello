@@ -102,13 +102,15 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
       .getConfig()
       .rows.forEach((row) =>
         row.fields.forEach((field) =>
-          field.setElementRef(
-            this.visibleFormFieldsRefs?.find(
-              (matFormField) =>
-                (matFormField._elementRef.nativeElement as HTMLElement).id ===
-                field.name
-            )?._inputContainerRef.nativeElement
-          )
+          field
+            ? field.setElementRef(
+                this.visibleFormFieldsRefs?.find(
+                  (matFormField) =>
+                    (matFormField._elementRef.nativeElement as HTMLElement)
+                      .id === field.name
+                )?._inputContainerRef.nativeElement
+              )
+            : null
         )
       );
   }

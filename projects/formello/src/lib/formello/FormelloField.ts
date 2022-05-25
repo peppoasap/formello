@@ -17,6 +17,7 @@ export class FormelloField implements IFormelloField {
   readonly: boolean = false;
   datepicker: { startDate: Date } | undefined = undefined;
   elementRef: HTMLElement | undefined = undefined;
+  cssClasses?: string | undefined = '';
 
   constructor(
     _name: string,

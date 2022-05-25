@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { GENERIC_ERROR_CODES } from 'formello';
 import {
+  EMPTY_FIELD,
   FormelloField,
   FormelloFieldTypes,
   IFormelloConfig,
@@ -124,7 +125,7 @@ export class CustomerFormModel implements OnDestroy {
   active = new FormelloField(
     'active',
     'Attivo',
-    false,
+    true,
     FormelloFieldTypes.CHECK
   );
 
@@ -148,11 +149,8 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
           this.model.surname,
           this.model.birthdate,
           this.model.birthdate,
-
           this.model.birthdate,
-
           this.model.birthdate,
-
           this.model.age,
           this.model.gender,
         ],
@@ -169,6 +167,10 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
           this.model.phone,
           this.model.cellphone,
           this.model.cellphone2,
+          EMPTY_FIELD(),
+          this.model.email,
+          this.model.email,
+          EMPTY_FIELD('width-32'),
           this.model.email,
         ],
       },
@@ -183,6 +185,7 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
     this.model.phone.label = `Telefono**`;
     this.model.vatCodePrefix.control.clearValidators();
     this.model.vatCode.label = 'Partita Iva';
+    this.model.name.cssClasses = 'width-100';
   }
 }
 

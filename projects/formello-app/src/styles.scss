@@ -1,3 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "@lendingsolution/agatha-ui-web/dist/web/web.css";
+
+
+.width-100{
+    width: 100% !important;
+}
+
+.width-32{
+    width: 32px !important;
+    background-color: red !important;
+}
+
+.width-32::after{
+    content: 'hello';
+}

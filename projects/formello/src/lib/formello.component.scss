@@ -11,6 +11,10 @@
     margin-left: 1rem;
 }
 
+.formello-empty{
+    flex: 1;
+}
+
 .formello-field:first-child, .formello-radio-button:first-child, .formello-checkbox:first-child {
     margin-left: 0;
 }

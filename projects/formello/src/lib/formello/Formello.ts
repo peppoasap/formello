@@ -1,6 +1,10 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { IFormelloConfig, IFormelloField } from '../../public-api';
+import {
+  FormelloFieldTypes,
+  IFormelloConfig,
+  IFormelloField,
+} from '../../public-api';
 import { FormelloField } from './FormelloField';
 
 export class Formello<T> {
@@ -17,7 +21,12 @@ export class Formello<T> {
   private generateFormGroup() {
     this._formGroup = new FormGroup({});
     this.getFieldsFromRow().forEach((field) => {
-      if (field && field.name && field.control) {
+      if (
+        field &&
+        field.name &&
+        field.control &&
+        field.type !== FormelloFieldTypes.EMPTY
+      ) {
         this._formGroup.addControl(field.name, field.control);
       }
     });
@@ -46,9 +55,10 @@ export class Formello<T> {
   public changeConfiguration(config: IFormelloConfig<T>) {
     //Persist model in rows set - to avoid data loss and valueChanges resubscriptions
     this._config.rows = config.rows.map((row) => {
-      row.fields.forEach(
-        (field) =>
-          (field.control = (this._config.model as any)[field.name].control)
+      row.fields.forEach((field) =>
+        field
+          ? (field.control = (this._config.model as any)[field.name].control)
+          : null
       );
       return row;
     });
