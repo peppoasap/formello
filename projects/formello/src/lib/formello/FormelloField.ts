@@ -5,13 +5,13 @@ import {
   IFormelloFieldOption,
 } from '../../public-api';
 
-export class FormelloField implements IFormelloField {
+export class FormelloField<V = string> implements IFormelloField<V> {
   name: string;
   label: string;
   validators: Array<ValidatorFn> = [];
   control = new FormControl();
   type: FormelloFieldTypes;
-  options: Array<IFormelloFieldOption> = [];
+  options: Array<IFormelloFieldOption<V>> = [];
   errors: Map<string, string> = new Map();
   disabled: boolean = false;
   readonly: boolean = false;
@@ -19,13 +19,20 @@ export class FormelloField implements IFormelloField {
   elementRef: HTMLElement | undefined = undefined;
   cssClasses?: string | undefined = '';
 
+  public get numberValue() : number {
+    return +this.control.value;
+  }
+  public get booleanValue(): boolean {
+    return this.control.value === "true";
+  }
+
   constructor(
     _name: string,
     _label: string,
-    _value: string | number | boolean | null,
+    _value: V,
     _type: FormelloFieldTypes,
     _validators?: ValidatorFn[],
-    _options?: Array<IFormelloFieldOption>
+    _options?: Array<IFormelloFieldOption<V>>
   ) {
     this.name = _name;
     this.label = _label;

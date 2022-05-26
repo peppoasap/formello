@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   Component,
   ContentChildren,
   Input,
@@ -9,7 +8,6 @@ import {
   TemplateRef,
   ViewChildren,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
