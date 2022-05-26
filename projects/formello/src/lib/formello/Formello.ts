@@ -1,20 +1,17 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   FormelloFieldTypes,
   IFormelloConfig,
   IFormelloField,
 } from '../../public-api';
-import { FormelloField } from './FormelloField';
 
 export class Formello<T> {
   private _config: IFormelloConfig<T>;
-  private _keys: Array<string> = [];
   private _formGroup: FormGroup = new FormGroup({});
 
   constructor(config: IFormelloConfig<T>) {
     this._config = config;
-    this.setKeysFromModel();
     this.generateFormGroup();
   }
 
@@ -38,10 +35,6 @@ export class Formello<T> {
         accumulator.concat(currentValue.fields),
       []
     );
-  }
-
-  private setKeysFromModel() {
-    this._keys = Object.keys(this._config.model);
   }
 
   public getForm() {
