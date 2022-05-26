@@ -1,20 +1,17 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   FormelloFieldTypes,
   IFormelloConfig,
   IFormelloField,
 } from '../../public-api';
-import { FormelloField } from './FormelloField';
 
 export class Formello<T> {
   private _config: IFormelloConfig<T>;
-  private _keys: Array<string> = [];
   private _formGroup: FormGroup = new FormGroup({});
 
   constructor(config: IFormelloConfig<T>) {
     this._config = config;
-    this.setKeysFromModel();
     this.generateFormGroup();
   }
 
@@ -40,10 +37,6 @@ export class Formello<T> {
     );
   }
 
-  private setKeysFromModel() {
-    this._keys = Object.keys(this._config.model);
-  }
-
   public getForm() {
     return this._formGroup;
   }
@@ -55,9 +48,10 @@ export class Formello<T> {
   public changeConfiguration(config: IFormelloConfig<T>) {
     //Persist model in rows set - to avoid data loss and valueChanges resubscriptions
     this._config.rows = config.rows.map((row) => {
+      let modelAsAny = this._config.model as any;
       row.fields.forEach((field) =>
-        field
-          ? (field.control = (this._config.model as any)[field.name].control)
+        (field && field.name && modelAsAny[field.name])
+          ? (field.control = modelAsAny[field.name].control)
           : null
       );
       return row;

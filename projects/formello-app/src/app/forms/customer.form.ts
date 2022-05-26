@@ -17,7 +17,7 @@ export enum CustomerType {
 
 @Injectable()
 export class CustomerFormModel implements OnDestroy {
-  type = new FormelloField(
+  type = new FormelloField<number>(
     'type',
     'Tipologia',
     CustomerType.PHYSIC,
