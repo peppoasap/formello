@@ -48,9 +48,10 @@ export class Formello<T> {
   public changeConfiguration(config: IFormelloConfig<T>) {
     //Persist model in rows set - to avoid data loss and valueChanges resubscriptions
     this._config.rows = config.rows.map((row) => {
+      let modelAsAny = this._config.model as any;
       row.fields.forEach((field) =>
-        field
-          ? (field.control = (this._config.model as any)[field.name].control)
+        (field && field.name && modelAsAny[field.name])
+          ? (field.control = modelAsAny[field.name].control)
           : null
       );
       return row;

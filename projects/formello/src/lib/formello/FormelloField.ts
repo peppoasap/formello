@@ -5,7 +5,7 @@ import {
   IFormelloFieldOption,
 } from '../../public-api';
 
-export class FormelloField<V = any> implements IFormelloField<V> {
+export class FormelloField<V = string> implements IFormelloField<V> {
   name: string;
   label: string;
   validators: Array<ValidatorFn> = [];
@@ -19,8 +19,11 @@ export class FormelloField<V = any> implements IFormelloField<V> {
   elementRef: HTMLElement | undefined = undefined;
   cssClasses?: string | undefined = '';
 
-  public get typedValue(): V {
-    return this.control.value as V;
+  public get numberValue() : number {
+    return +this.control.value;
+  }
+  public get booleanValue(): boolean {
+    return this.control.value === "true";
   }
 
   constructor(
@@ -29,7 +32,7 @@ export class FormelloField<V = any> implements IFormelloField<V> {
     _value: V,
     _type: FormelloFieldTypes,
     _validators?: ValidatorFn[],
-    _options?: Array<IFormelloFieldOption>
+    _options?: Array<IFormelloFieldOption<V>>
   ) {
     this.name = _name;
     this.label = _label;

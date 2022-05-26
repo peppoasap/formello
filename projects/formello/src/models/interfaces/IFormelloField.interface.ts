@@ -1,6 +1,6 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
 
-export interface IFormelloField<V = any> {
+export interface IFormelloField<V = string> {
   name: string;
   label: string;
   validators: Array<ValidatorFn>;
@@ -16,7 +16,8 @@ export interface IFormelloField<V = any> {
   elementRef: HTMLElement | undefined;
   cssClasses?: string;
 
-  typedValue : V;
+  numberValue : number;
+  booleanValue : boolean;
 
   getCurrentErrors(): Array<string>;
   addValidators(validatorsToAdd: Array<ValidatorFn>): void;
@@ -25,7 +26,7 @@ export interface IFormelloField<V = any> {
   setElementRef(element: any): void;
 }
 
-export interface IFormelloFieldOption<V = any> {
+export interface IFormelloFieldOption<V = string> {
   value: V;
   viewValue: string;
 }
