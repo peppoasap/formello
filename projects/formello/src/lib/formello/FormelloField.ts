@@ -20,6 +20,7 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   cssClasses?: string | undefined = '';
 
   private _optionSearchKey?: string | undefined = undefined;
+  private _minimumSearchLength : number = 1;
 
   public get numberValue() : number {
     return +this.control.value;
@@ -33,6 +34,13 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   }
   public set optionSearchKey(key : string | undefined) {
     this._optionSearchKey = key;
+  }
+
+  public get minimumSearchLength() : number {
+    return this._minimumSearchLength;
+  }
+  public set minimumSearchLength(length : number) {
+    this._minimumSearchLength = length;
   }
 
   constructor(
