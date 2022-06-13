@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import {
   IFormelloFieldOption,
   FormelloFieldTypes,
@@ -42,26 +42,30 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit() {
     Object.keys(this.formello.getConfig().model).forEach((key) => {
-      const field = (this.formello.getConfig().model as any)[key];
+      const field = (this.formello.getConfig().model as any)[key] as FormelloField;
       if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
         this.filteredOptionsArray.set(
           key,
           field.control.valueChanges.pipe(
             /* startWith(''), !DEPRECATED! */
+            debounceTime(400),
+            distinctUntilChanged(),
             map((value: any) => {
               if(typeof value === 'string')
                 return value;
 
-              const formelloField = field as FormelloField;
-              return (formelloField && formelloField.optionSearchKey) ?
-                value[formelloField.optionSearchKey] :
+              return (field && field.optionSearchKey) ?
+                value[field.optionSearchKey] :
                 value.viewValue;
               }),
-            map((searchText: string) =>
-            searchText
+            map((searchText: string) => {
+              if(searchText.length < field.minimumSearchLength)
+                return [];
+
+              return searchText
                 ? this._filter(field.options, searchText)
-                : field.options.slice()
-            )
+                : field.options.slice();
+            })
           )
         );
       }
