@@ -22,12 +22,14 @@ export class AppComponent {
 
     this.customerFormModel.vatCodePrefix.options = [
       { value : 'AAx', viewValue : 'AA' },
+      { value : 'AABABAx', viewValue : 'AABABA' },
       { value : 'BBx', viewValue : 'BB' },
       { value : 'CCx', viewValue : 'CC' },
       { value : 'DDx', viewValue : 'DD' },
+      { value : 'DD12x', viewValue : 'DD12' },
       { value : 'EEx', viewValue : 'EE' }
     ];
-    //this.customerFormModel.vatCodePrefix.optionSearchKey = 'code';
+    this.customerFormModel.vatCodePrefix.optionSearchKey = 'code';
 
     this.customerFormModel.type.control.valueChanges.subscribe(() => {
       switch(this.customerFormModel.type.numberValue) {
