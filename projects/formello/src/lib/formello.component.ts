@@ -60,7 +60,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
               }),
             map((searchText: string) => {
               if(!searchText) {
-                return field.options.slice();
+                return field.options.slice(0, field.maxOptionsDisplayed);
               }
 
               if(searchText.length < field.minimumSearchLength) {
