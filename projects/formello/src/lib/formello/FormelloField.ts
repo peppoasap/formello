@@ -19,11 +19,17 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   elementRef: HTMLElement | undefined = undefined;
   cssClasses?: string | undefined = '';
 
+  private _optionSearchKey?: string | undefined = undefined;
+
   public get numberValue() : number {
     return +this.control.value;
   }
   public get booleanValue(): boolean {
     return this.control.value === "true";
+  }
+
+  public set optionSearchKey(key : string) {
+    this._optionSearchKey = key;
   }
 
   constructor(

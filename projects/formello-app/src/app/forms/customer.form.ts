@@ -108,10 +108,10 @@ export class CustomerFormModel implements OnDestroy {
     FormelloFieldTypes.TEXT,
     [Validators.required]
   );
-  vatCodePrefix = new FormelloField(
+  vatCodePrefix = new FormelloField/* <{ code : string } | undefined> */(
     'vatCodePrefix',
     'Prefisso Partita Iva',
-    null,
+    '',
     FormelloFieldTypes.SEARCH_SELECT,
     [Validators.required, Validators.maxLength(2), Validators.minLength(2)]
   );

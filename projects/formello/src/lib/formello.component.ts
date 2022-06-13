@@ -47,13 +47,19 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
         this.filteredOptionsArray.set(
           key,
           field.control.valueChanges.pipe(
-            startWith(''),
-            map((value: any) =>
-              typeof value === 'string' ? value : value.viewValue
-            ),
-            map((viewValue: any) =>
-              viewValue
-                ? this._filter(field.options, viewValue)
+            /* startWith(''), !DEPRECATED! */
+            map((value: any) => {
+              if(typeof value === 'string')
+                return value;
+
+              const formelloField = field as FormelloField;
+              return (formelloField && formelloField.optionSearchKey) ?
+                value[formelloField.optionSearchKey] :
+                value.viewValue;
+              }),
+            map((searchText: string) =>
+            searchText
+                ? this._filter(field.options, searchText)
                 : field.options.slice()
             )
           )
@@ -87,9 +93,9 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   private _filter(
     options: IFormelloFieldOption[],
-    value: string
+    filterText: string
   ): IFormelloFieldOption[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = filterText.toLowerCase();
     return options.filter((option) =>
       option.viewValue.toLowerCase().includes(filterValue)
     );
