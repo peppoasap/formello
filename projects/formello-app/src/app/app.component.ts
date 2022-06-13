@@ -20,6 +20,15 @@ export class AppComponent {
       new CustomerFormConfig(this.customerFormModel)
     );
 
+    this.customerFormModel.vatCodePrefix.options = [
+      { value : 'AAx', viewValue : 'AA' },
+      { value : 'BBx', viewValue : 'BB' },
+      { value : 'CCx', viewValue : 'CC' },
+      { value : 'DDx', viewValue : 'DD' },
+      { value : 'EEx', viewValue : 'EE' }
+    ];
+    //this.customerFormModel.vatCodePrefix.optionSearchKey = 'code';
+
     this.customerFormModel.type.control.valueChanges.subscribe(() => {
       switch(this.customerFormModel.type.numberValue) {
         case CustomerType.PHYSIC:
