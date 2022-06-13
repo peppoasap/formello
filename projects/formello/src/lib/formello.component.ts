@@ -48,7 +48,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
           key,
           field.control.valueChanges.pipe(
             /* startWith(''), !DEPRECATED! */
-            debounceTime(400),
+            debounceTime(300),
             distinctUntilChanged(),
             map((value: any) => {
               if(typeof value === 'string')
@@ -59,12 +59,15 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
                 value.viewValue;
               }),
             map((searchText: string) => {
-              if(searchText.length < field.minimumSearchLength)
-                return [];
+              if(!searchText) {
+                return field.options.slice();
+              }
 
-              return searchText
-                ? this._filter(field.options, searchText)
-                : field.options.slice();
+              if(searchText.length < field.minimumSearchLength) {
+                return [];
+              }
+
+              return this._filter(field.options, searchText);
             })
           )
         );
