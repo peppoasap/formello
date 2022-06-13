@@ -21,6 +21,7 @@ export class FormelloField<V = string> implements IFormelloField<V> {
 
   private _optionSearchKey?: string | undefined = undefined;
   private _minimumSearchLength : number = 1;
+  private _maxOptionsDisplayed : number = Infinity;
 
   public get numberValue() : number {
     return +this.control.value;
@@ -41,6 +42,13 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   }
   public set minimumSearchLength(length : number) {
     this._minimumSearchLength = length;
+  }
+
+  public get maxOptionsDisplayed() : number {
+    return this._maxOptionsDisplayed;
+  }
+  public set maxOptionsDisplayed(count : number) {
+    this._maxOptionsDisplayed = count;
   }
 
   constructor(
