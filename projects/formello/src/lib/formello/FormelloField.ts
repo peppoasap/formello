@@ -28,7 +28,10 @@ export class FormelloField<V = string> implements IFormelloField<V> {
     return this.control.value === "true";
   }
 
-  public set optionSearchKey(key : string) {
+  public get optionSearchKey() : string | undefined {
+    return this._optionSearchKey;
+  }
+  public set optionSearchKey(key : string | undefined) {
     this._optionSearchKey = key;
   }
 
