@@ -100,12 +100,13 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   private _filter(
     options: IFormelloFieldOption[],
-    filterText: string
+    filterText: string,
+    maxOptions : number = options.length
   ): IFormelloFieldOption[] {
     const filterValue = filterText.toLowerCase();
     return options.filter((option) =>
       option.viewValue.toLowerCase().includes(filterValue)
-    );
+    ).slice(0, maxOptions);
   }
 
   private updateElementRef(): void {
