@@ -67,7 +67,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
                 return [];
               }
 
-              return this._filter(field.options, searchText);
+              return this._filter(field.options, searchText, field.maxOptionsDisplayed);
             })
           )
         );
