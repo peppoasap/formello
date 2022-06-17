@@ -57,7 +57,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
               return (field && field.optionSearchKey) ?
                 value[field.optionSearchKey] :
                 value.viewValue;
-              }),
+            }),
             map((searchText: string) => {
               if(!searchText) {
                 return field.options.slice(0, field.maxOptionsDisplayed);
