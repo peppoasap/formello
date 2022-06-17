@@ -50,7 +50,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
             /* startWith(''), !DEPRECATED! */
             debounceTime(300),
             distinctUntilChanged(),
-            filter(value => !!value), // not null
+            filter(Boolean), // not null
             map((value: any) => {
               if(!value || typeof value === 'string')
                 return value;
