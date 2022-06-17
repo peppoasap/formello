@@ -51,7 +51,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
             debounceTime(300),
             distinctUntilChanged(),
             map((value: any) => {
-              if(typeof value === 'string')
+              if(!value || typeof value === 'string')
                 return value;
 
               return (field && field.optionSearchKey) ?
