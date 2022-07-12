@@ -1,6 +1,7 @@
 import {
   Component,
   ContentChildren,
+  ElementRef,
   Input,
   OnDestroy,
   OnInit,
@@ -10,12 +11,19 @@ import {
 } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  startWith,
+} from 'rxjs/operators';
 import {
   IFormelloFieldOption,
   FormelloFieldTypes,
 } from '../models/interfaces/IFormelloField.interface';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
+import { FormelloFieldDirective } from './formello-field.directive';
 import { Formello } from './formello/Formello';
 import { FormelloField } from './formello/FormelloField';
 
@@ -31,9 +39,8 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   @ContentChildren(FormelloCustomFieldDef, { descendants: true })
   customFieldDefs: QueryList<FormelloCustomFieldDef> | undefined;
-  @ViewChildren(MatFormField) visibleFormFieldsRefs:
-    | QueryList<MatFormField>
-    | undefined;
+  @ViewChildren(FormelloFieldDirective, { read: ElementRef })
+  visibleFormFieldsRefs: QueryList<ElementRef> | undefined;
 
   filteredOptionsArray: Map<string, Observable<IFormelloFieldOption[]>> =
     new Map();
@@ -42,7 +49,9 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit() {
     Object.keys(this.formello.getConfig().model).forEach((key) => {
-      const field = (this.formello.getConfig().model as any)[key] as FormelloField;
+      const field = (this.formello.getConfig().model as any)[
+        key
+      ] as FormelloField;
       if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
         this.filteredOptionsArray.set(
           key,
@@ -60,15 +69,19 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
                 value.viewValue;
             }),
             map((searchText: string) => {
-              if(!searchText) {
+              if (!searchText) {
                 return field.options.slice(0, field.maxOptionsDisplayed);
               }
 
-              if(searchText.length < field.minimumSearchLength) {
+              if (searchText.length < field.minimumSearchLength) {
                 return [];
               }
 
-              return this._filter(field.options, searchText, field.maxOptionsDisplayed);
+              return this._filter(
+                field.options,
+                searchText,
+                field.maxOptionsDisplayed
+              );
             })
           )
         );
@@ -102,12 +115,12 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
   private _filter(
     options: IFormelloFieldOption[],
     filterText: string,
-    maxOptions : number = options.length
+    maxOptions: number = options.length
   ): IFormelloFieldOption[] {
     const filterValue = filterText.toLowerCase();
-    return options.filter((option) =>
-      option.viewValue.toLowerCase().includes(filterValue)
-    ).slice(0, maxOptions);
+    return options
+      .filter((option) => option.viewValue.toLowerCase().includes(filterValue))
+      .slice(0, maxOptions);
   }
 
   private updateElementRef(): void {
@@ -118,10 +131,10 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
           field
             ? field.setElementRef(
                 this.visibleFormFieldsRefs?.find(
-                  (matFormField) =>
-                    (matFormField._elementRef.nativeElement as HTMLElement)
-                      .id === field.name
-                )?._inputContainerRef.nativeElement
+                  (visibleField) =>
+                    (visibleField.nativeElement as HTMLElement).id ===
+                    field.name
+                )?.nativeElement
               )
             : null
         )

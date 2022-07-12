@@ -12,9 +12,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxAgathaModule } from '@lendingsolution/ngx-agatha-ui';
+import { FormelloFieldDirective } from './formello-field.directive';
 
 @NgModule({
-  declarations: [FormelloComponent, FormelloCustomFieldDef],
+  declarations: [FormelloComponent, FormelloCustomFieldDef, FormelloFieldDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule,

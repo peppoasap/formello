@@ -7,7 +7,7 @@
                     <ng-container *ngTemplateOutlet="getCustomFieldTemplate(field.name)"></ng-container>
                 </ng-container>
 
-                <ng-template #standardField>
+                <ng-template #standardField formelloField>
                     <ng-container [ngSwitch]="styleLibrary">
                         <ng-container *ngSwitchCase="'material'" [ngTemplateOutlet]="material" [ngTemplateOutletContext]="{field}"></ng-container>
                         <ng-container *ngSwitchCase="'agatha'" [ngTemplateOutlet]="agatha" [ngTemplateOutletContext]="{field}"></ng-container>
@@ -99,11 +99,15 @@
         <ng-container #date *ngSwitchCase="'DATE'">
             <mat-form-field appearance="outline" class="formello-field" [id]="field.name" [ngClass]="field.cssClasses">
                 <mat-label>{{field.label}}</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="$any(formello.getForm().get(field.name))"
+                <input matInput [matDatepicker]="picker"
+                [min]="field.datepicker?.minDate ? field.datepicker?.minDate : null"
+                [max]="field.datepicker?.maxDate ? field.datepicker?.maxDate : null"
+                [formControl]="$any(formello.getForm().get(field.name))"
                     [disabled]="field.disabled" [readonly]="field.readonly">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker
                     [startAt]="field.datepicker?.startDate ? field.datepicker?.startDate : null"
+                
                     disabled="false">
                 </mat-datepicker>
             </mat-form-field>
@@ -203,7 +207,10 @@
         </ng-container>
 
         <ng-container #date *ngSwitchCase="'DATE'">
-            <agt-input ngDefaultControl type="date" class="formello-field" [ngClass]="field.cssClasses" [id]="field.name" [disabled]="field.disabled" [label]="field.label"  [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
+            <agt-input ngDefaultControl type="date" class="formello-field" 
+            [min]="field.datepicker?.minDate ? field.datepicker?.minDate : null"
+                [max]="field.datepicker?.maxDate ? field.datepicker?.maxDate : null"
+            [ngClass]="field.cssClasses" [id]="field.name" [disabled]="field.disabled" [label]="field.label"  [error]="field.getCurrentErrors().length > 0 ?  getErrorsForAgatha(field) : null" [formControl]="$any(formello.getForm().get(field.name))"></agt-input>
         </ng-container>
 
         <ng-container #time *ngSwitchCase="'TIME'">

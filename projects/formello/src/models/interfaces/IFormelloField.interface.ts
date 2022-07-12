@@ -12,12 +12,14 @@ export interface IFormelloField<V = string> {
   readonly: boolean;
   datepicker?: {
     startDate?: Date;
+    minDate?: Date;
+    maxDate?: Date;
   };
   elementRef: HTMLElement | undefined;
   cssClasses?: string;
 
-  numberValue : number;
-  booleanValue : boolean;
+  numberValue: number;
+  booleanValue: boolean;
 
   getCurrentErrors(): Array<string>;
   addValidators(validatorsToAdd: Array<ValidatorFn>): void;
