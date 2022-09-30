@@ -22,7 +22,8 @@ export class Formello<T> {
         field &&
         field.name &&
         field.control &&
-        field.type !== FormelloFieldTypes.EMPTY
+        field.type !== FormelloFieldTypes.EMPTY &&
+        field.type !== FormelloFieldTypes.BUTTON
       ) {
         this._formGroup.addControl(field.name, field.control);
       }
@@ -50,7 +51,7 @@ export class Formello<T> {
     this._config.rows = config.rows.map((row) => {
       let modelAsAny = this._config.model as any;
       row.fields.forEach((field) =>
-        (field && field.name && modelAsAny[field.name])
+        field && field.name && modelAsAny[field.name]
           ? (field.control = modelAsAny[field.name].control)
           : null
       );

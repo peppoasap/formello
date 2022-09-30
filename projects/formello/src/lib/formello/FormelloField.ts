@@ -3,6 +3,7 @@ import {
   IFormelloField,
   FormelloFieldTypes,
   IFormelloFieldOption,
+  FormelloDatePicker,
 } from '../../public-api';
 
 export class FormelloField<V = string> implements IFormelloField<V> {
@@ -15,39 +16,39 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   errors: Map<string, string> = new Map();
   disabled: boolean = false;
   readonly: boolean = false;
-  datepicker: { startDate: Date } | undefined = undefined;
+  datepicker: FormelloDatePicker | undefined = undefined;
   elementRef: HTMLElement | undefined = undefined;
   cssClasses?: string | undefined = '';
 
   private _optionSearchKey?: string | undefined = undefined;
-  private _minimumSearchLength : number = 1;
-  private _maxOptionsDisplayed : number = Infinity;
+  private _minimumSearchLength: number = 1;
+  private _maxOptionsDisplayed: number = Infinity;
 
-  public get numberValue() : number {
+  public get numberValue(): number {
     return +this.control.value;
   }
   public get booleanValue(): boolean {
-    return this.control.value === "true";
+    return this.control.value === 'true';
   }
 
-  public get optionSearchKey() : string | undefined {
+  public get optionSearchKey(): string | undefined {
     return this._optionSearchKey;
   }
-  public set optionSearchKey(key : string | undefined) {
+  public set optionSearchKey(key: string | undefined) {
     this._optionSearchKey = key;
   }
 
-  public get minimumSearchLength() : number {
+  public get minimumSearchLength(): number {
     return this._minimumSearchLength;
   }
-  public set minimumSearchLength(length : number) {
+  public set minimumSearchLength(length: number) {
     this._minimumSearchLength = length;
   }
 
-  public get maxOptionsDisplayed() : number {
+  public get maxOptionsDisplayed(): number {
     return this._maxOptionsDisplayed;
   }
-  public set maxOptionsDisplayed(count : number) {
+  public set maxOptionsDisplayed(count: number) {
     this._maxOptionsDisplayed = count;
   }
 

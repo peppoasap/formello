@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { GENERIC_ERROR_CODES } from 'formello';
+import { FormelloFieldButton, GENERIC_ERROR_CODES } from 'formello';
 import {
   EMPTY_FIELD,
   FormelloField,
@@ -95,8 +95,14 @@ export class CustomerFormModel implements OnDestroy {
   affiliateState = new FormelloField(
     'affiliateState',
     'Stato contatto',
-    null,
-    FormelloFieldTypes.SELECT
+    '1',
+    FormelloFieldTypes.SELECT,
+    [],
+    [
+      { value: '1', viewValue: 'UNO' },
+      { value: '2', viewValue: 'DUE' },
+      { value: '3', viewValue: 'TRE' },
+    ]
   );
   pec = new FormelloField('pec', 'PEC', null, FormelloFieldTypes.TEXT, [
     Validators.email,
@@ -108,8 +114,8 @@ export class CustomerFormModel implements OnDestroy {
     FormelloFieldTypes.TEXT,
     [Validators.required]
   );
-  vatCodePrefix = new FormelloField/* <{ code : string } | undefined> */(
-    'vatCodePrefix',
+  vatCodePrefix = new FormelloField(
+    /* <{ code : string } | undefined> */ 'vatCodePrefix',
     'Prefisso Partita Iva',
     '',
     FormelloFieldTypes.SEARCH_SELECT,
@@ -129,8 +135,21 @@ export class CustomerFormModel implements OnDestroy {
     FormelloFieldTypes.CHECK
   );
 
+  calculateTaxCodeButton = new FormelloFieldButton(
+    'calculateTaxCodeButton',
+    'Calcola Codice Fiscale',
+    () => {
+      console.log('CALCOLA CODICE FISCALE');
+      console.log(this);
+    }
+  );
+
   constructor() {
     this.name.setError(GENERIC_ERROR_CODES.REQUIRED, 'Campo richiesto');
+    this.birthdate.datepicker = {
+      minDate: new Date(1990, 0, 2),
+      maxDate: new Date(2020, 0, 1),
+    };
   }
   ngOnDestroy() {}
 }
@@ -160,6 +179,7 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
           this.model.birthprovince,
           this.model.birthplace,
           this.model.taxCode,
+          this.model.calculateTaxCodeButton,
         ],
       },
       {
@@ -186,6 +206,9 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
     this.model.vatCodePrefix.control.clearValidators();
     this.model.vatCode.label = 'Partita Iva';
     this.model.name.cssClasses = 'width-100';
+    this.model.calculateTaxCodeButton.onClickCallback = () => {
+      console.log(this.rows, this.model.name.control.value);
+    };
   }
 }
 
