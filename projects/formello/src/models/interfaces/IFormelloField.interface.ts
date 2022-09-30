@@ -10,11 +10,7 @@ export interface IFormelloField<V = string> {
   errors: Map<string, string>;
   disabled: boolean;
   readonly: boolean;
-  datepicker?: {
-    startDate?: Date;
-    minDate?: Date;
-    maxDate?: Date;
-  };
+  datepicker?: FormelloDatePicker;
   elementRef: HTMLElement | undefined;
   cssClasses?: string;
 
@@ -43,6 +39,14 @@ export enum FormelloFieldTypes {
   TIME = 'TIME',
   SWITCH = 'SWITCH',
   EMPTY = 'EMPTY',
+  BUTTON = 'BUTTON',
+  TEMPLATE_REF = 'TEMPLATE_REF',
 }
 
 export type EMPTY_FIELD_TYPE = null;
+
+export interface FormelloDatePicker {
+  startDate?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+}

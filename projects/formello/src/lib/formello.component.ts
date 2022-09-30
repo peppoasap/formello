@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ContentChildren,
   ElementRef,
@@ -32,7 +33,7 @@ import { FormelloField } from './formello/FormelloField';
   templateUrl: 'formello.component.html',
   styleUrls: ['formello.component.scss'],
 })
-export class FormelloComponent<T> implements OnInit, OnDestroy {
+export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
   @Input()
   formello!: Formello<T>;
   @Input() styleLibrary: 'material' | 'agatha' = 'agatha';
@@ -48,7 +49,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    Object.keys(this.formello.getConfig().model).forEach((key) => {
+    Object.keys(this.formello.getConfig().model as any).forEach((key) => {
       const field = (this.formello.getConfig().model as any)[
         key
       ] as FormelloField;
@@ -61,12 +62,11 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
             distinctUntilChanged(),
             filter(Boolean), // not null
             map((value: any) => {
-              if(!value || typeof value === 'string')
-                return value;
+              if (!value || typeof value === 'string') return value;
 
-              return (field && field.optionSearchKey) ?
-                value[field.optionSearchKey] :
-                value.viewValue;
+              return field && field.optionSearchKey
+                ? value[field.optionSearchKey]
+                : value.viewValue;
             }),
             map((searchText: string) => {
               if (!searchText) {
@@ -85,10 +85,20 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
             })
           )
         );
+      } else if (field.type === FormelloFieldTypes.SELECT) {
+        // field.control.valueChanges.subscribe((value: string) =>
+        //   this.onSelectChange(value, field)
+        // );
+      } else if (field.type === FormelloFieldTypes.TEMPLATE_REF) {
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.updateElementRef();
 
     this.visibleFormFieldsRefs?.changes.subscribe((_) => {
+      console.log('UPDATING REFS');
       this.updateElementRef();
     });
   }
@@ -139,5 +149,15 @@ export class FormelloComponent<T> implements OnInit, OnDestroy {
             : null
         )
       );
+  }
+
+  onSelectChange(value: string, field: FormelloField) {
+    const select = field.elementRef?.firstElementChild?.getElementsByTagName(
+      'select'
+    )[0] as HTMLSelectElement;
+    if (select) {
+      select.value = value;
+      console.log('UPDATING SELECT');
+    }
   }
 }

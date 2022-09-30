@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormelloModule } from 'projects/formello/src/public-api';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { FormelloModule } from 'projects/formello/src/public-api';
     MatSlideToggleModule,
     NgxAgathaModule,
     FormelloModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

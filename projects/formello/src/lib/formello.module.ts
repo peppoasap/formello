@@ -13,9 +13,14 @@ import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxAgathaModule } from '@lendingsolution/ngx-agatha-ui';
 import { FormelloFieldDirective } from './formello-field.directive';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [FormelloComponent, FormelloCustomFieldDef, FormelloFieldDirective],
+  declarations: [
+    FormelloComponent,
+    FormelloCustomFieldDef,
+    FormelloFieldDirective,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,6 +32,7 @@ import { FormelloFieldDirective } from './formello-field.directive';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatSlideToggleModule,
+    MatButtonModule,
     NgxAgathaModule,
   ],
   exports: [FormelloComponent, FormelloCustomFieldDef],
