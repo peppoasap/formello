@@ -365,7 +365,7 @@
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
         [formControl]="$any(formello.getForm().get(field.name))">
-        <option *ngFor="let option of field.options" [value]="option.value">
+        <option *ngFor="let option of filteredOptionsArray.get(field.name) | async" [value]="option.value">
           {{ option.viewValue }}
         </option>
       </agt-search-select>
