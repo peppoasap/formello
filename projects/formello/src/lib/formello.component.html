@@ -353,40 +353,22 @@
     </ng-container>
 
     <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
-      <mat-form-field
+      <agt-search-select
         formelloField
-        appearance="outline"
+        ngDefaultControl
         class="formello-field"
-        [id]="field.name"
         [ngClass]="field.cssClasses"
-      >
-        <mat-label>{{ field.label }}</mat-label>
-        <input
-          type="text"
-          matInput
-          [formControl]="$any(formello.getForm().get(field.name))"
-          [matAutocomplete]="autoGroup"
-          [disabled]="field.disabled"
-          [readonly]="field.readonly"
-        />
-        <mat-autocomplete
-          autoActiveFirstOption
-          #autoGroup="matAutocomplete"
-          [displayWith]="displayFn"
-        >
-          <mat-option
-            *ngFor="let option of filteredOptionsArray.get(field.name) | async"
-            [value]="option"
-          >
-            {{ option.viewValue }}
-          </mat-option>
-        </mat-autocomplete>
-        <ng-container *ngIf="field.getCurrentErrors().length > 0">
-          <mat-error *ngFor="let error of getErrorsForAgatha(field)">
-            {{ error }}
-          </mat-error>
-        </ng-container>
-      </mat-form-field>
+        [id]="field.name"
+        [disabled]="field.disabled"
+        [label]="field.label"
+        [error]="
+          field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
+        "
+        [formControl]="$any(formello.getForm().get(field.name))">
+        <option *ngFor="let option of field.options" [value]="option.value">
+          {{ option.viewValue }}
+        </option>
+      </agt-search-select>
     </ng-container>
 
     <ng-container #date *ngSwitchCase="'DATE'">

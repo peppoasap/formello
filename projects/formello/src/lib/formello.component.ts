@@ -54,37 +54,37 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
         key
       ] as FormelloField;
       if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
-        this.filteredOptionsArray.set(
-          key,
-          field.control.valueChanges.pipe(
-            /* startWith(''), !DEPRECATED! */
-            debounceTime(300),
-            distinctUntilChanged(),
-            filter(Boolean), // not null
-            map((value: any) => {
-              if (!value || typeof value === 'string') return value;
-
-              return field && field.optionSearchKey
-                ? value[field.optionSearchKey]
-                : value.viewValue;
-            }),
-            map((searchText: string) => {
-              if (!searchText) {
-                return field.options.slice(0, field.maxOptionsDisplayed);
-              }
-
-              if (searchText.length < field.minimumSearchLength) {
-                return [];
-              }
-
-              return this._filter(
-                field.options,
-                searchText,
-                field.maxOptionsDisplayed
-              );
-            })
-          )
-        );
+        //this.filteredOptionsArray.set(
+        //  key,
+        //  field.control.valueChanges.pipe(
+        //    /* startWith(''), !DEPRECATED! */
+        //    debounceTime(300),
+        //    distinctUntilChanged(),
+        //    filter(Boolean), // not null
+        //    map((value: any) => {
+        //      if (!value || typeof value === 'string') return value;
+//
+        //      return field && field.optionSearchKey
+        //        ? value[field.optionSearchKey]
+        //        : value.viewValue;
+        //    }),
+        //    map((searchText: string) => {
+        //      if (!searchText) {
+        //        return field.options.slice(0, field.maxOptionsDisplayed);
+        //      }
+//
+        //      if (searchText.length < field.minimumSearchLength) {
+        //        return [];
+        //      }
+//
+        //      return this._filter(
+        //        field.options,
+        //        searchText,
+        //        field.maxOptionsDisplayed
+        //      );
+        //    })
+        //  )
+        //);
       } else if (field.type === FormelloFieldTypes.SELECT) {
         // field.control.valueChanges.subscribe((value: string) =>
         //   this.onSelectChange(value, field)

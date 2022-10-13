@@ -35,6 +35,7 @@ export class AppComponent {
       { value: 'EEx', viewValue: 'EE' },
     ];
     this.customerFormModel.vatCodePrefix.optionSearchKey = 'code';
+    this.customerFormModel.vatCodePrefix.control.valueChanges.subscribe((value) => { console.log(`value = ${value}`); });
 
     this.customerFormModel.type.control.valueChanges.subscribe(() => {
       switch (this.customerFormModel.type.numberValue) {
