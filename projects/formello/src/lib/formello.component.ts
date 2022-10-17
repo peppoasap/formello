@@ -10,16 +10,8 @@ import {
   TemplateRef,
   ViewChildren,
 } from '@angular/core';
-import { MatFormField } from '@angular/material/form-field';
-import { AgtSearchSelect } from '@lendingsolution/ngx-agatha-ui';
+
 import { Observable } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  startWith,
-} from 'rxjs/operators';
 import {
   IFormelloFieldOption,
   FormelloFieldTypes,
@@ -56,8 +48,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
       ] as FormelloField;
 
       if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
-
-        field.control.valueChanges.subscribe((v : any) => {
+        field.control.valueChanges.subscribe((v: any) => {
           console.log(v);
         });
 
@@ -70,7 +61,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
         //    filter(Boolean), // not null
         //    map((value: any) => {
         //      if (!value || typeof value === 'string') return value;
-//
+        //
         //      return field && field.optionSearchKey
         //        ? value[field.optionSearchKey]
         //        : value.viewValue;
@@ -79,11 +70,11 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
         //      if (!searchText) {
         //        return field.options.slice(0, field.maxOptionsDisplayed);
         //      }
-//
+        //
         //      if (searchText.length < field.minimumSearchLength) {
         //        return [];
         //      }
-//
+        //
         //      return this._filter(
         //        field.options,
         //        searchText,

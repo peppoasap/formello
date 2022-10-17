@@ -355,17 +355,16 @@
     <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
       <agt-search-select
         formelloField
-        ngDefaultControl
         class="formello-field"
         [ngClass]="field.cssClasses"
         [id]="field.name"
         [disabled]="field.disabled"
         [label]="field.label"
-        [value]="$any(formello.getForm().get(field.name)).value"
         [error]="
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
-        [formControl]="$any(formello.getForm().get(field.name))">
+        [formControl]="$any(formello.getForm().get(field.name))"
+      >
         <option *ngFor="let option of field.options" [value]="option.value">
           {{ option.viewValue }}
         </option>

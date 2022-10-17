@@ -11,7 +11,10 @@ import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NgxAgathaModule } from '@lendingsolution/ngx-agatha-ui';
+import {
+  NgxAgathaModule,
+  SelectValueAccessor,
+} from '@lendingsolution/ngx-agatha-ui';
 import { FormelloFieldDirective } from './formello-field.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchPipe } from './search.pipe';
