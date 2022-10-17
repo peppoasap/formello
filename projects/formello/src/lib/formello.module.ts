@@ -14,12 +14,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxAgathaModule } from '@lendingsolution/ngx-agatha-ui';
 import { FormelloFieldDirective } from './formello-field.directive';
 import { MatButtonModule } from '@angular/material/button';
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
   declarations: [
     FormelloComponent,
     FormelloCustomFieldDef,
     FormelloFieldDirective,
+    SearchPipe,
   ],
   imports: [
     CommonModule,
