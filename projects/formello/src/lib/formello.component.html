@@ -364,6 +364,7 @@
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
         [formControl]="$any(formello.getForm().get(field.name))"
+        [maxOptionsDisplayed]="field.maxOptionsDisplayed"
       >
         <option *ngFor="let option of field.options" [value]="option.value">
           {{ option.viewValue }}

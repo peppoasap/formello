@@ -25,15 +25,12 @@ export class AppComponent {
       new CustomerFormConfig(this.customerFormModel)
     );
 
-    this.customerFormModel.vatCodePrefix.options = [
-      { value: 'AAx', viewValue: 'AA' },
-      { value: 'AABABAx', viewValue: 'AABABA' },
-      { value: 'BBx', viewValue: 'BB' },
-      { value: 'CCx', viewValue: 'CC' },
-      { value: 'DDx', viewValue: 'DD' },
-      { value: 'DD12x', viewValue: 'DD12' },
-      { value: 'EEx', viewValue: 'EE' },
-    ];
+    let options = [];
+    for(let i=0; i<10000; i++) {
+      options.push({ value : `${i}`, viewValue : "Opzione " + i });
+    }
+    this.customerFormModel.vatCodePrefix.options = options;
+
     this.customerFormModel.vatCodePrefix.optionSearchKey = 'code';
 
     this.customerFormModel.type.control.valueChanges.subscribe(() => {

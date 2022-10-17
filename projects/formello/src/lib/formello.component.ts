@@ -13,8 +13,7 @@ import {
 
 import { Observable } from 'rxjs';
 import {
-  IFormelloFieldOption,
-  FormelloFieldTypes,
+  IFormelloFieldOption
 } from '../models/interfaces/IFormelloField.interface';
 import { FormelloCustomFieldDef } from './custom-field-def.directive';
 import { FormelloFieldDirective } from './formello-field.directive';
@@ -41,56 +40,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit() {
-    Object.keys(this.formello.getConfig().model as any).forEach((key) => {
-      const field = (this.formello.getConfig().model as any)[
-        key
-      ] as FormelloField;
-
-      if (field.type === FormelloFieldTypes.SEARCH_SELECT) {
-        field.control.valueChanges.subscribe((v: any) => {
-          console.log(v);
-        });
-
-        //this.filteredOptionsArray.set(
-        //  key,
-        //  field.control.valueChanges.pipe(
-        //    /* startWith(''), !DEPRECATED! */
-        //    debounceTime(300),
-        //    distinctUntilChanged(),
-        //    filter(Boolean), // not null
-        //    map((value: any) => {
-        //      if (!value || typeof value === 'string') return value;
-        //
-        //      return field && field.optionSearchKey
-        //        ? value[field.optionSearchKey]
-        //        : value.viewValue;
-        //    }),
-        //    map((searchText: string) => {
-        //      if (!searchText) {
-        //        return field.options.slice(0, field.maxOptionsDisplayed);
-        //      }
-        //
-        //      if (searchText.length < field.minimumSearchLength) {
-        //        return [];
-        //      }
-        //
-        //      return this._filter(
-        //        field.options,
-        //        searchText,
-        //        field.maxOptionsDisplayed
-        //      );
-        //    })
-        //  )
-        //);
-      } else if (field.type === FormelloFieldTypes.SELECT) {
-        // field.control.valueChanges.subscribe((value: string) =>
-        //   this.onSelectChange(value, field)
-        // );
-      } else if (field.type === FormelloFieldTypes.TEMPLATE_REF) {
-      }
-    });
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.updateElementRef();
@@ -118,17 +68,6 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
   getErrorsForAgatha(field: FormelloField): string[] {
     return Array.from(field.errors.values());
-  }
-
-  private _filter(
-    options: IFormelloFieldOption[],
-    filterText: string,
-    maxOptions: number = options.length
-  ): IFormelloFieldOption[] {
-    const filterValue = filterText.toLowerCase();
-    return options
-      .filter((option) => option.viewValue.toLowerCase().includes(filterValue))
-      .slice(0, maxOptions);
   }
 
   private updateElementRef(): void {
