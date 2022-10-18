@@ -1,4 +1,5 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
+import { BehaviorSubject, Subject, Observable, timer } from 'rxjs';
 import {
   IFormelloField,
   FormelloFieldTypes,
@@ -23,6 +24,8 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   private _optionSearchKey?: string | undefined = undefined;
   private _minimumSearchLength: number = 1;
   private _maxOptionsDisplayed: number = Infinity;
+
+  private refreshSubject = new BehaviorSubject<boolean>(true);
 
   public get numberValue(): number {
     return +this.control.value;
@@ -118,5 +121,17 @@ export class FormelloField<V = string> implements IFormelloField<V> {
 
   setElementRef(element: any) {
     this.elementRef = element;
+  }
+
+  public getRefreshSubject() : Observable<boolean> {
+    return this.refreshSubject.asObservable();
+  }
+
+  public setOptions(options : IFormelloFieldOption<V>[]) {
+    this.options = options;
+    this.refreshSubject.next(false);
+    timer(10).subscribe(() => {
+      this.refreshSubject.next(true);
+    });
   }
 }

@@ -354,6 +354,7 @@
 
     <ng-container #searchselect *ngSwitchCase="'SEARCH_SELECT'">
       <agt-search-select
+        *ngIf="field.getRefreshSubject() | async"
         formelloField
         class="formello-field"
         [ngClass]="field.cssClasses"

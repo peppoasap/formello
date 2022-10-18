@@ -1,6 +1,6 @@
 {
   "name": "formello-workspace",
-  "version": "0.1.61",
+  "version": "0.1.63",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,8 +20,8 @@
     "@angular/platform-browser": "~13.3.2",
     "@angular/platform-browser-dynamic": "~13.3.2",
     "@angular/router": "~13.3.2",
-    "@lendingsolution/agatha-ui-web": "^0.1.44",
-    "@lendingsolution/ngx-agatha-ui": "^0.1.44",
+    "@lendingsolution/agatha-ui-web": "^0.1.47",
+    "@lendingsolution/ngx-agatha-ui": "^0.1.47",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
