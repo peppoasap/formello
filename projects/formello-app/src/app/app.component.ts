@@ -29,9 +29,9 @@ export class AppComponent {
     for(let i=0; i<10000; i++) {
       options.push({ value : `${i}`, viewValue : "Opzione " + i });
     }
-    this.customerFormModel.vatCodePrefix.options = options;
+    this.customerFormModel.vatCodePrefix.options = options;/*
     this.customerFormModel.vatCodePrefix2.options = options;
-    this.customerFormModel.vatCodePrefix3.options = options;
+    this.customerFormModel.vatCodePrefix3.options = options; */
 
     this.customerFormModel.type.control.valueChanges.subscribe(() => {
       switch (this.customerFormModel.type.numberValue) {

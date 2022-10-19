@@ -25,7 +25,7 @@ import { FormelloField } from './formello/FormelloField';
   templateUrl: 'formello.component.html',
   styleUrls: ['formello.component.scss'],
 })
-export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
+export class FormelloComponent<T = string> implements OnInit, OnDestroy, AfterViewInit {
   @Input()
   formello!: Formello<T>;
   @Input() styleLibrary: 'material' | 'agatha' = 'agatha';
@@ -35,7 +35,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren(FormelloFieldDirective, { read: ElementRef })
   visibleFormFieldsRefs: QueryList<ElementRef> | undefined;
 
-  filteredOptionsArray: Map<string, Observable<IFormelloFieldOption[]>> =
+  filteredOptionsArray: Map<string, Observable<IFormelloFieldOption<T>[]>> =
     new Map();
 
   constructor() {}
@@ -62,11 +62,11 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
     return finded ? finded.templateRef : null;
   }
 
-  displayFn(option: IFormelloFieldOption): string {
+  displayFn(option: IFormelloFieldOption<T>): string {
     return option && option.viewValue ? option.viewValue : '';
   }
 
-  getErrorsForAgatha(field: FormelloField): string[] {
+  getErrorsForAgatha(field: FormelloField<T>): string[] {
     return Array.from(field.errors.values());
   }
 
@@ -88,7 +88,7 @@ export class FormelloComponent<T> implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
-  onSelectChange(value: string, field: FormelloField) {
+  onSelectChange(value: string, field: FormelloField<T>) {
     const select = field.elementRef?.firstElementChild?.getElementsByTagName(
       'select'
     )[0] as HTMLSelectElement;
