@@ -1,5 +1,4 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
 import {
   IFormelloField,
   FormelloFieldTypes,
@@ -13,7 +12,7 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   validators: Array<ValidatorFn> = [];
   control = new FormControl();
   type: FormelloFieldTypes;
-  private _options: Array<IFormelloFieldOption<string>> = [];
+  private _options: Array<IFormelloFieldOption<V>> = [];
   errors: Map<string, string> = new Map();
   disabled: boolean = false;
   readonly: boolean = false;
@@ -52,8 +51,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   public set maxOptionsDisplayed(count: number) {
     this._maxOptionsDisplayed = count;
   }
-
-  public optionValueFormatter ?: (option : V) => string;
 
   constructor(
     _name: string,
@@ -124,18 +121,10 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   }
 
   public get options() : IFormelloFieldOption<V>[] {
-    return this._options.map(option => {
-      return { ...option, value : JSON.parse(option.value) };
-    });
+    return this._options;
   }
 
   public set options(options : IFormelloFieldOption<V>[]) {
-
-    this._options = options.map(option => {
-      return {
-        ...option,
-        value : JSON.stringify(option.value)
-      };
-    });
+    this._options = options;
   }
 }

@@ -213,9 +213,9 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
         ],
       },
       {
-        fields: [this.model.pec, this.model.vatCodePrefix, this.model.vatCodePrefix2, this.model.vatCodePrefix3, this.model.vatCode],
+        fields: [this.model.pec, this.model.vatCodePrefix,  this.model.vatCodePrefix2, this.model.vatCodePrefix3, this.model.vatCode],
       },
-      { fields: [this.model.affiliateState, this.model.active] },
+      { fields: [this.model.affiliateState ,this.model.active] },
     ];
     this.model.name.label = `Nome*`;
     this.model.surname.label = `Cognome*`;

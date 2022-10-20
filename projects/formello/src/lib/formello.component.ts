@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   ElementRef,
@@ -24,6 +25,7 @@ import { FormelloField } from './formello/FormelloField';
   selector: 'formello',
   templateUrl: 'formello.component.html',
   styleUrls: ['formello.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class FormelloComponent<T = string> implements OnInit, OnDestroy, AfterViewInit {
   @Input()
@@ -86,15 +88,5 @@ export class FormelloComponent<T = string> implements OnInit, OnDestroy, AfterVi
             : null
         )
       );
-  }
-
-  onSelectChange(value: string, field: FormelloField<T>) {
-    const select = field.elementRef?.firstElementChild?.getElementsByTagName(
-      'select'
-    )[0] as HTMLSelectElement;
-    if (select) {
-      select.value = value;
-      console.log('UPDATING SELECT');
-    }
   }
 }
