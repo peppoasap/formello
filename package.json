@@ -1,12 +1,14 @@
 {
   "name": "formello-workspace",
-  "version": "0.1.65",
+  "version": "0.1.66",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "publish:patch" : "npx ng build formello --configuration=production && cd ./dist/formello && npm version patch && npm publish && npm run formello:patch",
+    "formello:patch" : "cd ./projects/formello && npm version patch"
   },
   "private": true,
   "dependencies": {
