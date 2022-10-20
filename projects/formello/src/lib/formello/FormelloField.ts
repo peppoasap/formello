@@ -25,8 +25,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   private _minimumSearchLength: number = 1;
   private _maxOptionsDisplayed: number = Infinity;
 
-  private refreshSubject = new BehaviorSubject<boolean>(true);
-
   public get numberValue(): number {
     return +this.control.value;
   }
@@ -125,10 +123,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
     this.elementRef = element;
   }
 
-  public getRefreshSubject() : Observable<boolean> {
-    return this.refreshSubject.asObservable();
-  }
-
   public get options() : IFormelloFieldOption<V>[] {
     return this._options.map(option => {
       return { ...option, value : JSON.parse(option.value) };
@@ -142,11 +136,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
         ...option,
         value : JSON.stringify(option.value)
       };
-    });
-
-    this.refreshSubject.next(false);
-    timer(10).subscribe(() => {
-      this.refreshSubject.next(true);
     });
   }
 }
