@@ -7,8 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "publish:patch" : "npx ng build formello --configuration=production && cd ./dist/formello && npm version patch && npm publish && npm run formello:patch",
-    "formello:patch" : "cd ./projects/formello && npm version patch"
+    "formello:patch" : "cd ./projects/formello && npm version patch",
+    "publish:patch" : "npx ng build formello --configuration=production && cd ./dist/formello && npm version patch && npm publish && npm run formello:patch"
   },
   "private": true,
   "dependencies": {
