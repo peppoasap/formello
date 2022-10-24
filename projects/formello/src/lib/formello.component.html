@@ -360,9 +360,11 @@
         [id]="field.name"
         [disabled]="field.disabled"
         [label]="field.label"
+        [placeholder]="field.placeholder"
         [error]="
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
+        [value]="$any(formello.getForm().get(field.name)).value"
         [formControl]="$any(formello.getForm().get(field.name))"
         [maxOptionsDisplayed]="field.maxOptionsDisplayed"
       >
