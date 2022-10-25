@@ -6,6 +6,11 @@ import {
   FormelloDatePicker,
 } from '../../public-api';
 
+interface IOptionDatum {
+  value : string;
+  text : string;
+}
+
 export class FormelloField<V = string> implements IFormelloField<V> {
   name: string;
   label: string;
@@ -19,6 +24,7 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   datepicker: FormelloDatePicker | undefined = undefined;
   elementRef: HTMLElement | undefined = undefined;
   cssClasses?: string | undefined = '';
+  private _optionsData: IOptionDatum[] = [];
 
   private _optionSearchKey !: string;
   private _minimumSearchLength: number = 1;
@@ -126,5 +132,13 @@ export class FormelloField<V = string> implements IFormelloField<V> {
 
   public set options(options : IFormelloFieldOption<V>[]) {
     this._options = options;
+  }
+
+  public get optionsData() : IOptionDatum[] {
+    return this._optionsData;
+  }
+
+  public set optionsData(optionsData : IOptionDatum[]) {
+    this._optionsData = optionsData;
   }
 }

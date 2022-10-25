@@ -27,9 +27,9 @@ export class AppComponent {
 
     let options = [];
     for(let i=0; i<10000; i++) {
-      options.push({ value : `${i}`, viewValue : "Opzione " + i });
+      options.push({ value : `${i}`, text : "Opzione " + i });
     }
-    this.customerFormModel.vatCodePrefix.options = options;
+    this.customerFormModel.vatCodePrefix.optionsData = options;
 
     /*
     this.customerFormModel.vatCodePrefix2.options = options;
@@ -53,7 +53,7 @@ export class AppComponent {
 
     setTimeout(() => {
       this.customerFormModel.affiliateState.control.setValue('3');
-      this.customerFormModel.vatCodePrefix.control.setValue(this.customerFormModel.vatCodePrefix.options[10].value);
+      this.customerFormModel.vatCodePrefix.control.setValue(this.customerFormModel.vatCodePrefix.optionsData[10].value);
     }, 2500);
   }
 }

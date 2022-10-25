@@ -367,10 +367,9 @@
         [value]="$any(formello.getForm().get(field.name)).value"
         [formControl]="$any(formello.getForm().get(field.name))"
         [maxOptionsDisplayed]="field.maxOptionsDisplayed"
+        [optionsData]="field.optionsData"
       >
-        <option *ngFor="let option of field.options" [value]="option.value" hidden>
-          {{ option.viewValue }}
-        </option>
+
       </agt-search-select>
     </ng-container>
 
