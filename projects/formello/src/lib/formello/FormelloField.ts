@@ -77,13 +77,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
     if (this.type !== FormelloFieldTypes.TEXT) {
       this.options = _options;
     }
-
-    if(this.type === FormelloFieldTypes.DATE) {
-      let max = (this.elementRef as HTMLInputElement).max;
-      if(!max) {
-        (this.elementRef as HTMLInputElement).max = '3000-01-01';
-      }
-    }
   }
 
   public getCurrentErrors(): Array<string> {
