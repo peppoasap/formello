@@ -30,6 +30,9 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   private _minimumSearchLength: number = 1;
   private _maxOptionsDisplayed: number = Infinity;
 
+  private _disabled : boolean = false;
+  private _loading : boolean = false;
+
   public get numberValue(): number {
     return +this.control.value;
   }
@@ -124,10 +127,7 @@ export class FormelloField<V = string> implements IFormelloField<V> {
     _value: V,
     _type: FormelloFieldTypes,
     _validators?: ValidatorFn[],
-    _options : Array<IFormelloFieldOption<V>> = [],
-
-    private _disabled : boolean  = _type === FormelloFieldTypes.SELECT || _type === FormelloFieldTypes.SEARCH_SELECT,
-    private _loading : boolean = _type === FormelloFieldTypes.SELECT || _type === FormelloFieldTypes.SEARCH_SELECT
+    _options : Array<IFormelloFieldOption<V>> = []
   ) {
     this.name = _name;
     this.label = _label;

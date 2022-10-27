@@ -1,6 +1,6 @@
 {
   "name": "formello-workspace",
-  "version": "0.1.73",
+  "version": "0.1.74",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
