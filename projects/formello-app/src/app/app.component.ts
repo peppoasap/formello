@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Formello } from 'projects/formello/src/public-api';
+import { Subject } from 'rxjs';
 import {
   CustomerFormConfig,
   CustomerFormModel,
@@ -25,11 +26,24 @@ export class AppComponent {
       new CustomerFormConfig(this.customerFormModel)
     );
 
-    let options = [];
+    let options : { value : string, viewValue : string }[] = [];
+    let optionsData : { value : string, text : string }[] = [];
     for(let i=0; i<10000; i++) {
-      options.push({ value : `${i}`, text : "Opzione " + i });
+      options.push({ value : `${i}`, viewValue : "Opzione " + i });
+      optionsData.push({ value : `${i}`, text : "Opzione " + i });
     }
-    this.customerFormModel.vatCodePrefix.optionsData = options;
+    //this.customerFormModel.vatCodePrefix.optionsData = options;
+
+    let optionsObservable = new Subject<{ value : string, viewValue : string }[]>();
+    let optionsDataObservable = new Subject<{ value : string, text : string }[]>();
+
+    this.customerFormModel.affiliateState.optionsObservable = optionsObservable.asObservable();
+    this.customerFormModel.vatCodePrefix.optionsDataObservable = optionsDataObservable.asObservable();
+
+    setTimeout(() => {
+      optionsObservable.next(options);
+      optionsDataObservable.next(optionsData);
+    }, 5000);
 
     /*
     this.customerFormModel.vatCodePrefix2.options = options;
@@ -50,10 +64,5 @@ export class AppComponent {
           break;
       }
     });
-
-    setTimeout(() => {
-      this.customerFormModel.affiliateState.control.setValue('3');
-      this.customerFormModel.vatCodePrefix.control.setValue(this.customerFormModel.vatCodePrefix.optionsData[10].value);
-    }, 2500);
   }
 }

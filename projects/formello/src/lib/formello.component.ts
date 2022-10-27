@@ -24,8 +24,7 @@ import { FormelloField } from './formello/FormelloField';
 @Component({
   selector: 'formello',
   templateUrl: 'formello.component.html',
-  styleUrls: ['formello.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['formello.component.scss']
 })
 export class FormelloComponent<T = string> implements OnInit, OnDestroy, AfterViewInit {
   @Input()
@@ -60,8 +59,8 @@ export class FormelloComponent<T = string> implements OnInit, OnDestroy, AfterVi
   }
 
   getCustomFieldTemplate(name: string): TemplateRef<any> | null {
-    const finded = this.customFieldDefs?.find((field) => field.name === name);
-    return finded ? finded.templateRef : null;
+    const found = this.customFieldDefs?.find((field) => field.name === name);
+    return found ? found.templateRef : null;
   }
 
   displayFn(option: IFormelloFieldOption<T>): string {

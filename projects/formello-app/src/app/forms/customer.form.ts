@@ -97,12 +97,7 @@ export class CustomerFormModel implements OnDestroy {
     'Stato contatto',
     '1',
     FormelloFieldTypes.SELECT,
-    [],
-    [
-      { value: '1', viewValue: 'UNO' },
-      { value: '2', viewValue: 'DUE' },
-      { value: '3', viewValue: 'TRE' },
-    ]
+    []
   );
   pec = new FormelloField('pec', 'PEC', null, FormelloFieldTypes.TEXT, [
     Validators.email,

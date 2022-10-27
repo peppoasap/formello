@@ -1,4 +1,6 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { IOptionDatum } from './IOptionDatum.interface';
 
 export interface IFormelloField<V = string> {
   name: string;
@@ -6,7 +8,12 @@ export interface IFormelloField<V = string> {
   validators: Array<ValidatorFn>;
   control: FormControl;
   type: FormelloFieldTypes;
+
   options: Array<IFormelloFieldOption<V>>;
+  optionsObservable : Observable<IFormelloFieldOption<V>[]>;
+  optionsData: IOptionDatum[];
+  optionsDataObservable: Observable<IOptionDatum[]>;
+
   errors: Map<string, string>;
   disabled: boolean;
   readonly: boolean;
