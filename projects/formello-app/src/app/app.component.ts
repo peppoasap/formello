@@ -45,6 +45,10 @@ export class AppComponent {
       optionsDataObservable.next(optionsData);
     }, 5000);
 
+    this.customerFormModel.type.placeholder = "Prova placeholder";
+    this.customerFormModel.type.control.setValue(null);
+    this.customerFormModel.type.control.updateValueAndValidity();
+
     /*
     this.customerFormModel.vatCodePrefix2.options = options;
     this.customerFormModel.vatCodePrefix3.options = options;

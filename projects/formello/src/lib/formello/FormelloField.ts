@@ -15,6 +15,8 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   control = new FormControl();
   type: FormelloFieldTypes;
 
+  placeholder : string = "";
+
   errors: Map<string, string> = new Map();
   readonly: boolean = false;
   datepicker: FormelloDatePicker | undefined = undefined;

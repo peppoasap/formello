@@ -33,6 +33,7 @@
   </div>
 </form>
 
+<!-- MATERIAL -->
 <ng-template #material let-field="field">
   <ng-container [ngSwitch]="field.type">
     <ng-container #text *ngSwitchCase="'TEXT'">
@@ -255,6 +256,7 @@
   </ng-container>
 </ng-template>
 
+<!-- AGATHA -->
 <ng-template #agatha let-field="field">
   <ng-container [ngSwitch]="field.type">
     <ng-container #text *ngSwitchCase="'TEXT'">
@@ -267,6 +269,7 @@
         [id]="field.name"
         [disabled]="field.disabled"
         [label]="field.label"
+        [placeholder]="field.placeholder"
         [error]="
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
@@ -289,6 +292,7 @@
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
         [formControl]="$any(formello.getForm().get(field.name))"
+        [placeholder]="field.placeholder"
       >
         <option *ngFor="let option of field.options" [value]="option.value">
           {{ option.viewValue }}
