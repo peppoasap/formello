@@ -32,7 +32,6 @@ export class AppComponent {
       options.push({ value : `${i}`, viewValue : "Opzione " + i });
       optionsData.push({ value : `${i}`, text : "Opzione " + i });
     }
-    //this.customerFormModel.vatCodePrefix.optionsData = options;
 
     let optionsObservable = new Subject<{ value : string, viewValue : string }[]>();
     let optionsDataObservable = new Subject<{ value : string, text : string }[]>();
@@ -44,10 +43,6 @@ export class AppComponent {
       optionsObservable.next(options);
       optionsDataObservable.next(optionsData);
     }, 5000);
-
-    this.customerFormModel.type.placeholder = "Prova placeholder";
-    this.customerFormModel.type.control.setValue(null);
-    this.customerFormModel.type.control.updateValueAndValidity();
 
     /*
     this.customerFormModel.vatCodePrefix2.options = options;
