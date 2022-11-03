@@ -28,7 +28,7 @@ export class AppComponent {
 
     let options : { value : string, viewValue : string }[] = [];
     let optionsData : { value : string, text : string }[] = [];
-    for(let i=0; i<10000; i++) {
+    for(let i=0; i<100; i++) {
       options.push({ value : `${i}`, viewValue : "Opzione " + i });
       optionsData.push({ value : `${i}`, text : "Opzione " + i });
     }

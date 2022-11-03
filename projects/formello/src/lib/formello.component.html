@@ -287,13 +287,12 @@
         [disabled]="field.disabled"
         [loading]="field.loading"
         [label]="field.label"
-        [value]="$any(formello.getForm().get(field.name)).value"
         [error]="
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
         [formControl]="$any(formello.getForm().get(field.name))"
-        [placeholder]="field.placeholder"
       >
+        <option [value]="null">{{ field.placeholder }}</option>
         <option *ngFor="let option of field.options" [value]="option.value">
           {{ option.viewValue }}
         </option>
