@@ -292,7 +292,7 @@
         "
         [formControl]="$any(formello.getForm().get(field.name))"
       >
-        <option [value]="null">{{ field.placeholder }}</option>
+        <option [value]="">{{ field.placeholder }}</option>
         <option *ngFor="let option of field.options" [value]="option.value">
           {{ option.viewValue }}
         </option>
