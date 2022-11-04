@@ -11,8 +11,8 @@ export interface IFormelloField<V = string> {
 
   options: Array<IFormelloFieldOption<V>>;
   optionsObservable : Observable<IFormelloFieldOption<V>[]>;
-  optionsData: IOptionDatum[];
-  optionsDataObservable: Observable<IOptionDatum[]>;
+  optionsData: IOptionDatum<V>[];
+  optionsDataObservable: Observable<IOptionDatum<V>[]>;
 
   errors: Map<string, string>;
   disabled: boolean;
@@ -32,8 +32,9 @@ export interface IFormelloField<V = string> {
 }
 
 export interface IFormelloFieldOption<V = string> {
-  value: V;
+  value: V | null;
   viewValue: string;
+  text ?: string; // compatibility
 }
 
 export enum FormelloFieldTypes {

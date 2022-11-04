@@ -26,28 +26,30 @@ export class AppComponent {
       new CustomerFormConfig(this.customerFormModel)
     );
 
-    let options : { value : string, viewValue : string }[] = [];
     let optionsData : { value : string, text : string }[] = [];
     for(let i=0; i<100; i++) {
-      options.push({ value : `${i}`, viewValue : "Opzione " + i });
       optionsData.push({ value : `${i}`, text : "Opzione " + i });
     }
 
-    let optionsObservable = new Subject<{ value : string, viewValue : string }[]>();
     let optionsDataObservable = new Subject<{ value : string, text : string }[]>();
 
-    this.customerFormModel.affiliateState.optionsObservable = optionsObservable.asObservable();
+    this.customerFormModel.affiliateState.optionsDataObservable = optionsDataObservable.asObservable();
     this.customerFormModel.vatCodePrefix.optionsDataObservable = optionsDataObservable.asObservable();
 
     setTimeout(() => {
-      optionsObservable.next(options);
       optionsDataObservable.next(optionsData);
-    }, 5000);
+    }, 2000);
 
     /*
     this.customerFormModel.vatCodePrefix2.options = options;
     this.customerFormModel.vatCodePrefix3.options = options;
     */
+
+   /*  this.customerFormModel.type.options = [
+      { value : null, viewValue : 'Seleziona un valore', text : 'Seleziona un valore' },
+      { value : 0, viewValue : 'Persona Fisica', text : 'Persona fisica' },
+      { value : 1, viewValue : 'Persona Giuridica', text : 'Persona giuridica' }
+    ]; */
 
     this.customerFormModel.type.control.valueChanges.subscribe(() => {
       switch (this.customerFormModel.type.numberValue) {
@@ -63,5 +65,7 @@ export class AppComponent {
           break;
       }
     });
+
+    console.log("form", this.customerFormModel);
   }
 }

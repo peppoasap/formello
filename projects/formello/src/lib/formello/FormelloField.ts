@@ -25,8 +25,8 @@ export class FormelloField<V = string> implements IFormelloField<V> {
 
   private _options: Array<IFormelloFieldOption<V>> = [];
   private _optionsObservable: Observable<Array<IFormelloFieldOption<V>>> = new Observable<IFormelloFieldOption<V>[]>();
-  private _optionsData: IOptionDatum[] = [];
-  private _optionsDataObservable: Observable<IOptionDatum[]> = new Observable<IOptionDatum[]>();
+  private _optionsData: IOptionDatum<V>[] = [];
+  private _optionsDataObservable: Observable<IOptionDatum<V>[]> = new Observable<IOptionDatum<V>[]>();
 
   private _optionSearchKey !: string;
   private _minimumSearchLength: number = 1;
@@ -68,10 +68,25 @@ export class FormelloField<V = string> implements IFormelloField<V> {
   }
 
   public set options(options : IFormelloFieldOption<V>[]) {
-    this._options = options;
+    this._options = options
+    //compatibility
+    .map(option => {
+      return {
+        value : option.value,
+        viewValue : option.viewValue,
+        text : option.text || option.viewValue
+      };
+    });
+
+    this.optionsData = options.map(option => {
+      return {
+        value : option.value,
+        text : option.text || option.viewValue
+      }
+    });
   }
 
-  public get optionsData() : IOptionDatum[] {
+  public get optionsData() : IOptionDatum<V>[] {
     return this._optionsData;
   }
 
@@ -84,25 +99,27 @@ export class FormelloField<V = string> implements IFormelloField<V> {
     this.loading = true;
 
     this._optionsObservable.subscribe((options)  => {
-      this.options = [...options];
+      this.options = options;
       this.loading = false;
     });
   }
 
-  public set optionsData(optionsData : IOptionDatum[]) {
+  public set optionsData(optionsData : IOptionDatum<V>[]) {
     this._optionsData = optionsData;
+
+    console.log("OPTIONS DATA", this.name, optionsData);
   }
 
-  public get optionsDataObservable() : Observable<IOptionDatum[]> {
+  public get optionsDataObservable() : Observable<IOptionDatum<V>[]> {
     return this._optionsDataObservable;
   }
 
-  public set optionsDataObservable(observable : Observable<IOptionDatum[]>) {
+  public set optionsDataObservable(observable : Observable<IOptionDatum<V>[]>) {
     this._optionsDataObservable = observable;
     this.loading = true;
 
     this._optionsDataObservable.subscribe((optionsData)  => {
-      this.optionsData = [...optionsData];
+      this.optionsData = optionsData;
       this.loading = false;
     });
   }

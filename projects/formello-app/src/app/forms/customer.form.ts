@@ -20,10 +20,11 @@ export class CustomerFormModel implements OnDestroy {
   type = new FormelloField<number>(
     'type',
     'Tipologia',
-    CustomerType.PHYSIC,
+    -1,
     FormelloFieldTypes.SELECT,
     [Validators.required],
     [
+      { value: -1, viewValue: 'Seleziona...' },
       { value: CustomerType.PHYSIC, viewValue: 'Persona Fisica' },
       { value: CustomerType.LEGAL, viewValue: 'Persona Giuridica' },
     ]
@@ -116,20 +117,6 @@ export class CustomerFormModel implements OnDestroy {
     FormelloFieldTypes.SEARCH_SELECT,
     [Validators.required, Validators.maxLength(2), Validators.minLength(2)]
   );
-  vatCodePrefix2 = new FormelloField(
-    /* <{ code : string } | undefined> */ 'vatCodePrefix DUE',
-    'Prefisso Partita Iva',
-    '',
-    FormelloFieldTypes.SEARCH_SELECT,
-    [Validators.required, Validators.maxLength(2), Validators.minLength(2)]
-  );
-  vatCodePrefix3 = new FormelloField(
-    /* <{ code : string } | undefined> */ 'vatCodePrefix TRE',
-    'Prefisso Partita Iva',
-    '',
-    FormelloFieldTypes.SEARCH_SELECT,
-    [Validators.required, Validators.maxLength(2), Validators.minLength(2)]
-  );
   vatCode = new FormelloField(
     'vatCode',
     'Partita Iva',
@@ -161,8 +148,6 @@ export class CustomerFormModel implements OnDestroy {
     };
 
     this.vatCodePrefix.maxOptionsDisplayed = 10;
-    this.vatCodePrefix2.maxOptionsDisplayed = 10;
-    this.vatCodePrefix3.maxOptionsDisplayed = 10;
   }
   ngOnDestroy() {}
 }
@@ -208,7 +193,7 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
         ],
       },
       {
-        fields: [this.model.pec, this.model.vatCodePrefix,  this.model.vatCodePrefix2, this.model.vatCodePrefix3, this.model.vatCode],
+        fields: [this.model.pec, this.model.vatCodePrefix, this.model.vatCode],
       },
       { fields: [this.model.affiliateState ,this.model.active] },
     ];
@@ -217,8 +202,6 @@ export class CustomerFormConfig implements IFormelloConfig<CustomerFormModel> {
     this.model.cellphone.label = `Cellulare**`;
     this.model.phone.label = `Telefono**`;
     this.model.vatCodePrefix.control.clearValidators();
-    this.model.vatCodePrefix2.control.clearValidators();
-    this.model.vatCodePrefix3.control.clearValidators();
     this.model.vatCode.label = 'Partita Iva';
     this.model.name.cssClasses = 'width-100';
     this.model.calculateTaxCodeButton.onClickCallback = () => {
@@ -242,8 +225,6 @@ export class CustomerFormConfigLegalPerson
           this.model.businessName,
           this.model.taxCode,
           this.model.vatCodePrefix,
-          this.model.vatCodePrefix2,
-          this.model.vatCodePrefix3,
           this.model.vatCode,
         ],
       },

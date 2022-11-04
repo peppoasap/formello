@@ -287,14 +287,12 @@
         [disabled]="field.disabled"
         [loading]="field.loading"
         [label]="field.label"
+        [optionsData]="field.optionsData"
         [error]="
           field.getCurrentErrors().length > 0 ? getErrorsForAgatha(field) : null
         "
         [formControl]="$any(formello.getForm().get(field.name))"
       >
-        <option *ngFor="let option of field.options" [value]="option.value">
-          {{ option.viewValue }}
-        </option>
       </agt-select>
     </ng-container>
 
