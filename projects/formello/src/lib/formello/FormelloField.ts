@@ -106,8 +106,6 @@ export class FormelloField<V = string> implements IFormelloField<V> {
 
   public set optionsData(optionsData : IOptionDatum<V>[]) {
     this._optionsData = optionsData;
-
-    console.log("OPTIONS DATA", this.name, optionsData);
   }
 
   public get optionsDataObservable() : Observable<IOptionDatum<V>[]> {
